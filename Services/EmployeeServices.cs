@@ -1,4 +1,5 @@
-﻿using Repositories.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Repositories.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,17 @@ namespace Services
 
             return employee;    
            
+        }
+
+
+        public List<Employee> getEmployees()
+        {
+           return context.Employees.Include(e => e.JobPosition).Include(e => e.Department).ToList();
+        }
+
+        public int getTotalEmployee()
+        {
+            return context.Employees.Count();
         }
     }
 }

@@ -45,7 +45,7 @@ public partial class Prn212Context : DbContext
     {
         modelBuilder.Entity<ActivityHistory>(entity =>
         {
-            entity.HasKey(e => e.HistoryId).HasName("PK__Activity__A145B1FF1C9A765A");
+            entity.HasKey(e => e.HistoryId).HasName("PK__Activity__A145B1FFE78DC77A");
 
             entity.ToTable("Activity_History");
 
@@ -56,12 +56,12 @@ public partial class Prn212Context : DbContext
 
             entity.HasOne(d => d.Employee).WithMany(p => p.ActivityHistories)
                 .HasForeignKey(d => d.EmployeeId)
-                .HasConstraintName("FK__Activity___Emplo__5441852A");
+                .HasConstraintName("FK__Activity___Emplo__571DF1D5");
         });
 
         modelBuilder.Entity<Attendance>(entity =>
         {
-            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__57FB453CE5BE8FC1");
+            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__57FB453C0410F47D");
 
             entity.ToTable("Attendance");
 
@@ -74,16 +74,16 @@ public partial class Prn212Context : DbContext
 
             entity.HasOne(d => d.AttendanceStatus).WithMany(p => p.Attendances)
                 .HasForeignKey(d => d.AttendanceStatusId)
-                .HasConstraintName("FK__Attendanc__Atten__656C112C");
+                .HasConstraintName("FK__Attendanc__Atten__68487DD7");
 
             entity.HasOne(d => d.Employee).WithMany(p => p.Attendances)
                 .HasForeignKey(d => d.EmployeeId)
-                .HasConstraintName("FK__Attendanc__Emplo__6477ECF3");
+                .HasConstraintName("FK__Attendanc__Emplo__6754599E");
         });
 
         modelBuilder.Entity<AttendanceStatus>(entity =>
         {
-            entity.HasKey(e => e.AttendanceStatusId).HasName("PK__Attendan__BB5C0C6DE0128DE3");
+            entity.HasKey(e => e.AttendanceStatusId).HasName("PK__Attendan__BB5C0C6D98EA2961");
 
             entity.ToTable("Attendance_Status");
 
@@ -95,7 +95,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Department>(entity =>
         {
-            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__151571C9D8A48170");
+            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__151571C9E4F31C1D");
 
             entity.Property(e => e.DepartmentId).HasColumnName("Department_id");
             entity.Property(e => e.DepartmentAddress)
@@ -108,13 +108,20 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__781228D97042C4C2");
+            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__781228D904B76B80");
+
+            entity.HasIndex(e => e.UserName, "UQ__Employee__5F1A10865CA9DAAD").IsUnique();
+
+            entity.HasIndex(e => e.PhoneNumber, "UQ__Employee__7E87EC6754C3100E").IsUnique();
+
+            entity.HasIndex(e => e.Email, "UQ__Employee__A9D1053403075EC9").IsUnique();
 
             entity.Property(e => e.EmployeeId).HasColumnName("Employee_id");
             entity.Property(e => e.Address).HasMaxLength(50);
             entity.Property(e => e.AvailableLeaveDays).HasColumnName("Available_leave_days");
             entity.Property(e => e.DepartmentId).HasColumnName("Department_id");
             entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.EndDate).HasColumnName("End_date");
             entity.Property(e => e.FirstName)
                 .HasMaxLength(50)
                 .HasColumnName("First_name");
@@ -136,20 +143,20 @@ public partial class Prn212Context : DbContext
 
             entity.HasOne(d => d.Department).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.DepartmentId)
-                .HasConstraintName("FK__Employees__Depar__5070F446");
+                .HasConstraintName("FK__Employees__Depar__534D60F1");
 
             entity.HasOne(d => d.JobPosition).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.JobPositionId)
-                .HasConstraintName("FK__Employees__Job_p__4F7CD00D");
+                .HasConstraintName("FK__Employees__Job_p__52593CB8");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.RoleId)
-                .HasConstraintName("FK__Employees__Role___5165187F");
+                .HasConstraintName("FK__Employees__Role___5441852A");
         });
 
         modelBuilder.Entity<JobPosition>(entity =>
         {
-            entity.HasKey(e => e.JobPositionId).HasName("PK__Job_Posi__ADB60CA3C5A71DED");
+            entity.HasKey(e => e.JobPositionId).HasName("PK__Job_Posi__ADB60CA3EFFB36E3");
 
             entity.ToTable("Job_Positions");
 
@@ -161,7 +168,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<LeaveRequest>(entity =>
         {
-            entity.HasKey(e => e.RequestId).HasName("PK__Leave_Re__E9C0AF0B0DB949EB");
+            entity.HasKey(e => e.RequestId).HasName("PK__Leave_Re__E9C0AF0BC8CE9961");
 
             entity.ToTable("Leave_Request");
 
@@ -174,20 +181,20 @@ public partial class Prn212Context : DbContext
 
             entity.HasOne(d => d.Employee).WithMany(p => p.LeaveRequests)
                 .HasForeignKey(d => d.EmployeeId)
-                .HasConstraintName("FK__Leave_Req__Emplo__5AEE82B9");
+                .HasConstraintName("FK__Leave_Req__Emplo__5DCAEF64");
 
             entity.HasOne(d => d.LeaveType).WithMany(p => p.LeaveRequests)
                 .HasForeignKey(d => d.LeaveTypeId)
-                .HasConstraintName("FK__Leave_Req__Leave__5BE2A6F2");
+                .HasConstraintName("FK__Leave_Req__Leave__5EBF139D");
 
             entity.HasOne(d => d.RequestStatus).WithMany(p => p.LeaveRequests)
                 .HasForeignKey(d => d.RequestStatusId)
-                .HasConstraintName("FK__Leave_Req__Reque__5CD6CB2B");
+                .HasConstraintName("FK__Leave_Req__Reque__5FB337D6");
         });
 
         modelBuilder.Entity<LeaveType>(entity =>
         {
-            entity.HasKey(e => e.LeaveTypeId).HasName("PK__Leave_ty__357FFCA867D0BC55");
+            entity.HasKey(e => e.LeaveTypeId).HasName("PK__Leave_ty__357FFCA87B57F826");
 
             entity.ToTable("Leave_type");
 
@@ -199,7 +206,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<RequestStatus>(entity =>
         {
-            entity.HasKey(e => e.RequestStatusId).HasName("PK__Request___A61490626A5B410E");
+            entity.HasKey(e => e.RequestStatusId).HasName("PK__Request___A61490626951DFE1");
 
             entity.ToTable("Request_Status");
 
@@ -211,7 +218,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__D80BB09383E041E9");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__D80BB093F87A4F76");
 
             entity.ToTable("Role");
 
@@ -223,7 +230,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Salary>(entity =>
         {
-            entity.HasKey(e => e.SalaryId).HasName("PK__Salary__D64F722C78926070");
+            entity.HasKey(e => e.SalaryId).HasName("PK__Salary__D64F722C937EC30C");
 
             entity.ToTable("Salary");
 
@@ -235,7 +242,7 @@ public partial class Prn212Context : DbContext
 
             entity.HasOne(d => d.Employee).WithMany(p => p.Salaries)
                 .HasForeignKey(d => d.EmployeeId)
-                .HasConstraintName("FK__Salary__Employee__619B8048");
+                .HasConstraintName("FK__Salary__Employee__6477ECF3");
         });
 
         OnModelCreatingPartial(modelBuilder);

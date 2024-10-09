@@ -33,9 +33,13 @@ public partial class Employee
 
     public DateOnly? StartDate { get; set; }
 
+    public DateOnly? EndDate { get; set; }
+
     public int? TotalLeaveDays { get; set; }
 
     public int? AvailableLeaveDays { get; set; }
+
+    public int? Status { get; set; }
 
     public int? RoleId { get; set; }
 
