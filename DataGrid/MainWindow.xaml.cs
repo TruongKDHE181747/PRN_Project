@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using Repositories.Models;
+using Services;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
@@ -76,6 +77,15 @@ namespace DataGrid
         {
             txtCountEmployee.Text = employeeServices.getTotalEmployee()+" Employees";
             LoadAllEmployee();
+        }
+
+        private void btnEmployeeDetail_Click(object sender, RoutedEventArgs e)
+        {
+            Employee employee = employeeDataGrid.SelectedItem as Employee;
+
+            EmployeeDetails employeeDetail = new EmployeeDetails();
+            employeeDetail.selected_employee = employee;
+            employeeDetail.ShowDialog();
         }
     }
 
