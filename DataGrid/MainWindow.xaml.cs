@@ -86,6 +86,8 @@ namespace DataGrid
             EmployeeDetails employeeDetail = new EmployeeDetails();
             employeeDetail.selected_employee = employee;
             employeeDetail.ShowDialog();
+            LoadAllEmployee();
+
         }
     }
 

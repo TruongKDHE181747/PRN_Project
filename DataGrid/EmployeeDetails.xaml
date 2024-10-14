@@ -14,7 +14,7 @@
          Background="Transparent"
          AllowsTransparency="True"
         >
-    <Grid>
+    <Grid Loaded="Grid_Loaded">
         <Border CornerRadius="10"                    
         BorderThickness="2"
         Opacity="0.95">
@@ -37,7 +37,7 @@
 
             <Grid>
 
-                <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100" HorizontalAlignment="Left" Margin="36,27,0,689">
+                <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100" HorizontalAlignment="Left" Margin="32,96,0,620">
 
                     <Ellipse x:Name="elImage">
                         <Ellipse.Fill>
@@ -53,8 +53,17 @@
   Content="Update Image"
   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
   Style="{StaticResource MaterialDesignOutlinedLightButton}"
-  ToolTip="MaterialDesignOutlinedButton" Margin="16,122,849,642" Click="btnImage_Click"
-  />
+  ToolTip="MaterialDesignOutlinedButton" Margin="16,189,849,575" Click="btnImage_Click" RenderTransformOrigin="0.5,0.5"
+  >
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="0"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
 
                 <StackPanel Orientation="Horizontal"
    HorizontalAlignment="Center"
@@ -93,16 +102,25 @@
                     </TextBox.Background>
                 </TextBox>
 
+                <ComboBox Name="cboRole" BorderBrush="White" Foreground="White"
+                 Margin="16,57,833,0" VerticalAlignment="Top">
 
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ComboBoxItem}">
+                            <Setter Property="Background" Value="White" />
+                            <Setter Property="Foreground" Value="Black" />
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
 
-                <Button x:Name="btnLogin"                          
+                <Button x:Name="btnSave"                          
                         BorderThickness="0"
                         Content="SAVE"
                         Foreground="White"
                         FontSize="12"
                         FontFamily="Montserrat"
                         Cursor="Hand"                           
-                        Margin="438,720,372,10"
+                        Margin="345,717,469,29" Click="btnSave_Click"
                         >
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -124,6 +142,36 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
+                </Button>
+                <Button x:Name="btnExit"                          
+        BorderThickness="0"
+        Content="EXIT"
+        Foreground="White"
+        FontSize="12"
+        FontFamily="Montserrat"
+        Cursor="Hand"                           
+        Margin="562,717,252,29" Click="btnExit_Click"
+        >
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#0099FF"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="150" Height="40"
+                    CornerRadius="20"
+                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
 
 
 
@@ -141,7 +189,7 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"                             
                     Width="326" Margin="581,119,89,644"/>
-                <TextBox x:Name="txtUser_Copy"
+                <TextBox x:Name="txtLastName"
                     FontSize="13"
                     FontWeight="Medium"
                     FontFamily="Montserrat"                            
@@ -163,8 +211,7 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"                             
                     Width="326" Margin="182,317,488,445"/>
-                <TextBox x:Name="txtAddress"
-                         Text="{Binding address}"
+                <TextBox  x:Name="txtAddress"  
                     FontSize="13"
                     FontWeight="Medium"
                     FontFamily="Montserrat"                            
@@ -182,9 +229,8 @@
                 </TextBox>
 
 
-                <DatePicker Foreground="White"
+                <DatePicker Name="dpDob" Foreground="White"
                             BorderBrush="White"
-  materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignOutlinedDatePicker}" Margin="182,224,488,515"
   />
                 <TextBlock Text="Date of Birth"
@@ -203,7 +249,7 @@
                   Tag="True" Margin="581,208,139,554" 
                  >
                 </RadioButton>
-                <RadioButton GroupName="gender" Foreground="White"
+                <RadioButton x:Name="rbFemale" GroupName="gender" Foreground="White"
                     Content="Female"
                     Style="{StaticResource MaterialDesignLightRadioButton}"
                     Tag="True" Margin="581,248,139,512" IsChecked="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}" 
@@ -214,8 +260,7 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"                             
                     Width="326" Margin="581,317,89,448"/>
-                <TextBox x:Name="txtPhoneNumber"
-                         Text="{Binding phone}"
+                <TextBox x:Name="txtPhoneNumber" 
                     FontSize="13"
                     FontWeight="Medium"
                     FontFamily="Montserrat"                            
@@ -238,19 +283,12 @@
                     FontFamily="Montserrat"                             
                     Width="326" Margin="581,515,89,250"/>
 
-                <ComboBox BorderBrush="White" Foreground="White"
+                <ComboBox Name="cboDepartment" BorderBrush="White" Foreground="White"
                          
   materialDesign:TextFieldAssist.HasClearButton="True"
-  ItemsSource="{Binding ShortStringList}"
   Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="581,546,89,0" VerticalAlignment="Top"
  >
-                    <ComboBox.SelectedItem>
-                        <Binding
-      Mode="TwoWay"
-      Path="SelectedValidationOutlined"
-      UpdateSourceTrigger="PropertyChanged">
-                        </Binding>
-                    </ComboBox.SelectedItem>
+                    
                     <ComboBox.ItemContainerStyle>
                         <Style TargetType="{x:Type ComboBoxItem}">
                             <Setter Property="Background" Value="White" />
@@ -268,13 +306,12 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"                             
                     Width="326" Margin="182,515,488,249"/>
-                <ComboBox BorderBrush="White" Foreground="White"
+                <ComboBox Name="cboJobPosition" BorderBrush="White" Foreground="White"
                          
                     materialDesign:TextFieldAssist.HasClearButton="True"
-                    ItemsSource="{Binding ShortStringList}"
+                    
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="182,546,488,0" VerticalAlignment="Top"
-                    SelectedItem="{Binding SelectedValidationOutlined, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
- >
+                     >
                     <ComboBox.ItemContainerStyle>
                         <Style TargetType="{x:Type ComboBoxItem}">
                             <Setter Property="Background" Value="White" />
@@ -292,7 +329,7 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"                             
                     Width="326" Margin="182,398,488,364"/>
-                <TextBox x:Name="txtUser_Copy3"
+                <TextBox x:Name="txtEmail"
                     FontSize="13"
                     FontWeight="Medium"
                     FontFamily="Montserrat"                            
@@ -308,11 +345,9 @@
                         <LinearGradientBrush/>
                     </TextBox.Background>
                 </TextBox>
-                <DatePicker Foreground="White"
+                <DatePicker Name="dpStartDate" Foreground="White" 
                     BorderBrush="White"
-                    materialDesign:HintAssist.Hint="Pick Date"
-                    Style="{StaticResource MaterialDesignOutlinedDatePicker}" Margin="581,418,89,321"
-  />
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}" Margin="581,418,89,321"/>
                 <TextBlock Text="Start Date"
                     Foreground="White"
                     FontSize="12"
@@ -347,7 +382,7 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"                             
                     Width="326" Margin="581,636,89,126"/>
-                <TextBox x:Name="txtTotalLeaveDays_Copy"
+                <TextBox x:Name="txtAvailableDays"
                     FontSize="13"
                     FontWeight="Medium"
                     FontFamily="Montserrat"                            
@@ -363,29 +398,8 @@
                         <LinearGradientBrush/>
                     </TextBox.Background>
                 </TextBox>
-                <TextBlock Text="Total Leave Days"
-                    Foreground="DarkGray"
-                    FontSize="12"
-                    FontWeight="Medium"
-                    FontFamily="Montserrat"                             
-                    Width="326" Margin="182,636,488,126"/>
-                <TextBox x:Name="txtTotalLeaveDays_Copy1"
-                    FontSize="13"
-                    FontWeight="Medium"
-                    FontFamily="Montserrat"                            
-                    Foreground="White"
-                    CaretBrush="LightGray"
-                    BorderBrush="DarkGray"
-                    BorderThickness="0,0,0,2"
-                    Height="28"
-                    VerticalContentAlignment="Center"
-                    Width="326" Margin="182,656,488,112" PreviewTextInput="txtTotalLeaveDays_PreviewTextInput" 
-                         >
-                    <TextBox.Background>
-                        <LinearGradientBrush/>
-                    </TextBox.Background>
-                </TextBox>
                 
+
             </Grid>
         </Border>
     </Grid>
