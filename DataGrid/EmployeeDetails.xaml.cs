@@ -89,7 +89,7 @@ namespace DataGrid
                 catch
                 {
                     //Phòng trường hợp trùng tên file
-                    MessageBox.Show("Duplicate file name!", "Can not upload", MessageBoxButton.OK, MessageBoxImage.Error);
+                    saveInSQlPath = Path.GetFileName(source);
                 }
                 //C:\Users\Dell\source\repos\PRN_Project\EmployeeWPF\EImages\
 
