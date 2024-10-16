@@ -1,5 +1,6 @@
 ﻿using Repositories.Models;
 using Services;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
@@ -70,13 +71,48 @@ namespace DataGrid
         EmployeeServices employeeServices = new EmployeeServices();
         public void LoadAllEmployee()
         {
-            
+           //employeeDataGrid.Items.Clear();
            employeeDataGrid.ItemsSource = employeeServices.getEmployees();
+        }
+
+        public void LoadJobPosition()
+        {
+            
+            cboJobPosition.ItemsSource = employeeServices.getEmployees().Select(e => e.JobPosition).Distinct();
+            cboJobPosition.DisplayMemberPath = "JobPositionName";
+            cboJobPosition.SelectedValuePath = "JobPositionId";
+        }
+
+
+        public void LoadDepartment()
+        {
+            
+            cboDepartment.ItemsSource = employeeServices.getEmployees().Select(e => e.Department).Distinct();
+            cboDepartment.DisplayMemberPath = "DepartmentName";
+            cboDepartment.SelectedValuePath = "DepartmentId";
+        }
+
+        public void LoadGender()
+        {
+            List<string> sList = new List<string>();
+            sList.Add("Female");
+            sList.Add("Male"); 
+            cboGender.ItemsSource = sList;
+        }
+
+        public void LoadData()
+        {
+            txtCountEmployee.Text = employeeServices.getTotalEmployee() + " Employees";
+            LoadAllEmployee();
+            LoadDepartment();
+            LoadJobPosition();
+            LoadGender();
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            txtCountEmployee.Text = employeeServices.getTotalEmployee()+" Employees";
-            LoadAllEmployee();
+            //btnAddEmployee.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("white"));
+            //btnAddEmployee.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("black"));
+            LoadData();
         }
 
         private void btnEmployeeDetail_Click(object sender, RoutedEventArgs e)
@@ -87,6 +123,98 @@ namespace DataGrid
             employeeDetail.selected_employee = employee;
             employeeDetail.ShowDialog();
             LoadAllEmployee();
+
+        }
+
+        public void FilterEmployee()
+        {
+            List<Employee> eList = employeeServices.getEmployees();
+            string name = txtEmployeeName.Text;
+            if (name.Length > 0)
+            {
+
+                eList = eList.Where(e => (e.FirstName + " " + e.LastName).ToLower().Contains(name.ToLower())).ToList();
+            }
+
+            int departmentId = -1;
+            int jobpositionId = -1;
+            int gender = -1;
+
+            if (cboDepartment.SelectedIndex > -1)
+            {
+                departmentId = int.Parse(cboDepartment.SelectedValue + "");
+                eList = eList.Where(e => e.DepartmentId == departmentId).ToList();
+            }
+            if (cboJobPosition.SelectedIndex > -1)
+            {
+                jobpositionId = int.Parse(cboJobPosition.SelectedValue + "");
+                eList = eList.Where(e => e.JobPositionId == jobpositionId).ToList();
+            }
+            if (cboGender.SelectedIndex > -1)
+            {
+                gender = cboGender.SelectedIndex;   // index = 1 => Male, Index = 0 => Female
+                if (gender == 1)
+                {
+                    eList = eList.Where(e => e.Gender == true).ToList();
+                }
+                if (gender == 0)
+                {
+                    eList = eList.Where(e => e.Gender == false).ToList();
+                }
+            }
+            // employeeDataGrid.Items.Clear(); 
+            employeeDataGrid.ItemsSource = eList;
+        }
+
+        private void txtEmployeeName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterEmployee();
+        }
+
+        private void cboDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterEmployee();
+        }
+
+        private void cboJobPosition_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterEmployee();
+        }
+
+        private void cboGender_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterEmployee();
+        }
+
+        private void btnResetFilter_Click(object sender, RoutedEventArgs e)
+        {
+            cboDepartment.SelectedIndex = -1;
+            cboJobPosition.SelectedIndex = -1;  
+            cboGender.SelectedIndex = -1;
+            txtEmployeeName.Text = "";
+            LoadAllEmployee();
+        }
+
+        private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeAddWindow employeeAddWindow = new EmployeeAddWindow();
+            employeeAddWindow.ShowDialog();
+            LoadData(); 
+            
+        }
+
+        private void btnHideEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Do you want to change Status of this Employee!", "Change Status", MessageBoxButton.YesNo, MessageBoxImage.Question); 
+            if(result == MessageBoxResult.Yes)
+            {
+                
+                Employee employee = employeeDataGrid.SelectedItem as Employee;
+                employee.StatusId = 2;
+                employeeServices.UpdateEmployee(employee);
+                MessageBox.Show("Change successful!", "Change Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadData(); 
+            }
 
         }
     }

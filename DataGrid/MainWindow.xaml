@@ -5,6 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataGrid"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
         Height="720" Width="1080" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
         Background="Transparent" WindowStyle="None">
     <Window.Resources>
@@ -74,7 +77,7 @@
                             <Button Style="{StaticResource menuButton}">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="CashMultiple" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Wallet"/>
+                                    <TextBlock Text="Salary"/>
                                 </StackPanel>
                             </Button>
 
@@ -117,7 +120,7 @@
                         Panel.ZIndex="1" Text="Search here ..."
                         Visibility="{Binding ElementName=textBoxSearch, Path=Text, Converter={StaticResource BoolToVis}}" />
 
-                    <TextBox Name="textBoxSearch" Style="{StaticResource searchTextbox}"/>
+                    <TextBox Foreground="#B0B9C6" BorderBrush="Black" Tag="Search" Name="textBoxSearch" Style="{StaticResource PlaceholderforTextBox}"/>
 
                     <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
                 </Grid>
@@ -135,10 +138,10 @@
                 <TextBlock Text="Members" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
 
                 <!--Add Button-->
-                <Button Style="{StaticResource addButton}">
+                <Button x:Name="btnAddEmployee" Style="{StaticResource addButton}" Click="btnAddEmployee_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
-                        <TextBlock Text="Add New Member"/>
+                        <TextBlock Text="Add New Employee"/>
                     </StackPanel>
                 </Button>
 
@@ -150,29 +153,50 @@
                     <Button Style="{StaticResource tabButton}" Content="Club staff" BorderBrush="#784FF2"/>
                     <Button Style="{StaticResource tabButton}" Content="Players"/>
                     <Button Style="{StaticResource tabButton}" Content="Archived"/>
+                    
+                    <Button x:Name="btnResetFilter" Margin="10 0 0 0" Style="{StaticResource addButton}" Click="btnResetFilter_Click">
+                        <StackPanel Orientation="Horizontal">
+                            
+                            <TextBlock Text="Reset Filter"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
 
                 <!--Counter Title-->
                 <TextBlock x:Name="txtCountEmployee" Text="68 Employees" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                <TextBlock Text="Filter by" Grid.Row="4" FontSize="13" FontWeight="SemiBold" Margin="0 0 215 0" Foreground="#121518" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <ComboBox Name="cboGender"
+  materialDesign:HintAssist.Hint="Gender"
+  Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="483,0,221,0" Grid.Row="4" SelectionChanged="cboGender_SelectionChanged"
+ >
+                   
+                </ComboBox>
+                <ComboBox Name="cboJobPosition"
+ materialDesign:HintAssist.Hint="Job Position"
+ Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="322,10,352,0" Grid.Row="4" VerticalAlignment="Top" SelectionChanged="cboJobPosition_SelectionChanged"
+>
+                </ComboBox>
+                <ComboBox Name="cboDepartment"
+ materialDesign:HintAssist.Hint="Department"
+ Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="183,0,513,0" Grid.Row="4" SelectionChanged="cboDepartment_SelectionChanged"
+>
+                </ComboBox>
 
                 <!--Filter Textbox-->
                 <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4">
-                    <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                        Panel.ZIndex="1" Text="Search in Members ..."
-                        Visibility="{Binding ElementName=textBoxFilter, Path=Text, Converter={StaticResource BoolToVis}}" />
+                    
 
-                    <TextBox Name="textBoxFilter" Style="{StaticResource filterTextBox}"/>
+                    <TextBox FontSize="14" Tag="Employee name" Name="txtEmployeeName" Style="{StaticResource PlaceholderforTextBox}" TextChanged="txtEmployeeName_TextChanged"/>
+                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
                 </Grid>
 
                 <!--Members Data Grid-->
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="employeeDataGrid" Style="{DynamicResource DataGridStyle1}">
                     <DataGrid.Columns>
-                        
+
                         <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding EmployeeId}"/>
-                        
-                        
+
+
                         <DataGridTemplateColumn Header="Firstname" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -198,9 +222,9 @@
                         <DataGridTextColumn Header="Email" Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Address" Binding="{Binding Address}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Phone Number" Binding="{Binding PhoneNumber}" IsReadOnly="True" Width="*"/>
-                        
-                        
-                        
+
+
+
                         <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -208,7 +232,7 @@
                                         <Button Name="btnEmployeeDetail" Style="{StaticResource gridEditButton}" Click="btnEmployeeDetail_Click">
                                             <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
-                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
+                                        <Button x:Name="btnHideEmployee" Background="Yellow" Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Click="btnHideEmployee_Click">
                                             <Icon:PackIconMaterial Kind="EyeOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                     </StackPanel>

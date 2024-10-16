@@ -39,7 +39,7 @@ public partial class Employee
 
     public int? AvailableLeaveDays { get; set; }
 
-    public int? Status { get; set; }
+    public int? StatusId { get; set; }
 
     public int? RoleId { get; set; }
 
@@ -56,4 +56,6 @@ public partial class Employee
     public virtual Role? Role { get; set; }
 
     public virtual ICollection<Salary> Salaries { get; set; } = new List<Salary>();
+
+    public virtual Status? Status { get; set; }
 }

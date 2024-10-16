@@ -16,8 +16,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-       
-        <Style x:Key="topButton" TargetType="Button">
+
+
+            
+            <Style x:Key="topButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="#6E7783" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -225,7 +227,7 @@
         <Style x:Key="gridEditButton" TargetType="Button">
             <Setter Property="Background" Value="#512DA8" />
             <Setter Property="BorderBrush" Value="#4A148C" />
-            <Setter Property="Foreground" Value="#ffffff" />
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Template" >
@@ -248,7 +250,8 @@
         <Style x:Key="gridRemoveButton" TargetType="Button" BasedOn="{StaticResource gridEditButton}">
             <Setter Property="Background" Value="#D32F2F" />
             <Setter Property="BorderBrush" Value="#B71C1C" />
-            <Style.Triggers>
+            <Setter Property="Foreground" Value="Black" />
+                <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#F44336" />
                 </Trigger>
@@ -537,6 +540,49 @@
             </Setter>
         </Style>
         <!--#endregion-->
+
+
+
+            <Style TargetType="TextBox" x:Key="PlaceholderforTextBox" BasedOn="{StaticResource filterTextBox}">
+                
+                
+                
+                
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border"  CornerRadius="7" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="#E0E6ED" SnapsToDevicePixels="True">
+                                <Grid Margin="{TemplateBinding Padding}" Background="Transparent">
+                                    <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}" />
+                                    <TextBlock
+            Name="_TextBlock"
+            Padding="{TemplateBinding Padding}"
+            Margin="2 0 0 0"
+            Foreground="{TemplateBinding Foreground}"
+            Text="{TemplateBinding Tag}"
+            Visibility="Collapsed" />
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!--  || When Text Block is empty, Show PlaceHolder ||  -->
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Text" Value="" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="_TextBlock" Property="Visibility" Value="Visible" />
+                                </MultiTrigger>
+
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#d9d9d9"/>
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#d9d9d9"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>
