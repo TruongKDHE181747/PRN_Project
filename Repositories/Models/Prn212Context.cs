@@ -31,6 +31,8 @@ public partial class Prn212Context : DbContext
 
     public virtual DbSet<LeaveType> LeaveTypes { get; set; }
 
+    public virtual DbSet<Notification> Notifications { get; set; }
+
     public virtual DbSet<RequestStatus> RequestStatuses { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
@@ -47,7 +49,7 @@ public partial class Prn212Context : DbContext
     {
         modelBuilder.Entity<ActivityHistory>(entity =>
         {
-            entity.HasKey(e => e.HistoryId).HasName("PK__Activity__A145B1FFA28976B3");
+            entity.HasKey(e => e.HistoryId).HasName("PK__Activity__A145B1FF91D69518");
 
             entity.ToTable("Activity_History");
 
@@ -63,7 +65,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Attendance>(entity =>
         {
-            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__57FB453CABE0576B");
+            entity.HasKey(e => e.AttendanceId).HasName("PK__Attendan__57FB453C9DDAD5A3");
 
             entity.ToTable("Attendance");
 
@@ -87,7 +89,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<AttendanceStatus>(entity =>
         {
-            entity.HasKey(e => e.AttendanceStatusId).HasName("PK__Attendan__BB5C0C6D716AD8F8");
+            entity.HasKey(e => e.AttendanceStatusId).HasName("PK__Attendan__BB5C0C6DCB04D209");
 
             entity.ToTable("Attendance_Status");
 
@@ -100,7 +102,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Department>(entity =>
         {
-            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__151571C98547B94C");
+            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__151571C9E4C1AD7C");
 
             entity.Property(e => e.DepartmentId).HasColumnName("Department_id");
             entity.Property(e => e.DepartmentAddress)
@@ -114,13 +116,13 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__781228D91CEEAFD6");
+            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__781228D95A27C2BB");
 
-            entity.HasIndex(e => e.UserName, "UQ__Employee__5F1A108669CAE229").IsUnique();
+            entity.HasIndex(e => e.UserName, "UQ__Employee__5F1A108600E24FD0").IsUnique();
 
-            entity.HasIndex(e => e.PhoneNumber, "UQ__Employee__7E87EC670BA1549B").IsUnique();
+            entity.HasIndex(e => e.PhoneNumber, "UQ__Employee__7E87EC67C514911C").IsUnique();
 
-            entity.HasIndex(e => e.Email, "UQ__Employee__A9D105348423B379").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Employee__A9D1053470532293").IsUnique();
 
             entity.Property(e => e.EmployeeId).HasColumnName("Employee_id");
             entity.Property(e => e.Address).HasMaxLength(50);
@@ -168,7 +170,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<JobPosition>(entity =>
         {
-            entity.HasKey(e => e.JobPositionId).HasName("PK__Job_Posi__ADB60CA388E00F6C");
+            entity.HasKey(e => e.JobPositionId).HasName("PK__Job_Posi__ADB60CA38BFE9CEB");
 
             entity.ToTable("Job_Positions");
 
@@ -181,7 +183,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<LeaveRequest>(entity =>
         {
-            entity.HasKey(e => e.RequestId).HasName("PK__Leave_Re__E9C0AF0B470F65B5");
+            entity.HasKey(e => e.RequestId).HasName("PK__Leave_Re__E9C0AF0BD878FF5A");
 
             entity.ToTable("Leave_Request");
 
@@ -208,7 +210,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<LeaveType>(entity =>
         {
-            entity.HasKey(e => e.LeaveTypeId).HasName("PK__Leave_ty__357FFCA8C20FD058");
+            entity.HasKey(e => e.LeaveTypeId).HasName("PK__Leave_ty__357FFCA8BD9005A2");
 
             entity.ToTable("Leave_type");
 
@@ -219,9 +221,29 @@ public partial class Prn212Context : DbContext
                 .HasColumnName("Leave_type_name");
         });
 
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.HasKey(e => e.NotificationId).HasName("PK__Notifica__20CF2E12B1A5F10A");
+
+            entity.ToTable("Notification");
+
+            entity.Property(e => e.Content).HasMaxLength(255);
+            entity.Property(e => e.CreateBy).HasColumnName("Create_by");
+            entity.Property(e => e.DepartmentId).HasColumnName("Department_id");
+            entity.Property(e => e.SendAt).HasColumnName("Send_at");
+
+            entity.HasOne(d => d.CreateByNavigation).WithMany(p => p.Notifications)
+                .HasForeignKey(d => d.CreateBy)
+                .HasConstraintName("FK__Notificat__Creat__6E01572D");
+
+            entity.HasOne(d => d.Department).WithMany(p => p.Notifications)
+                .HasForeignKey(d => d.DepartmentId)
+                .HasConstraintName("FK__Notificat__Depar__6EF57B66");
+        });
+
         modelBuilder.Entity<RequestStatus>(entity =>
         {
-            entity.HasKey(e => e.RequestStatusId).HasName("PK__Request___A614906223E3AEF1");
+            entity.HasKey(e => e.RequestStatusId).HasName("PK__Request___A614906264366868");
 
             entity.ToTable("Request_Status");
 
@@ -234,7 +256,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__D80BB093F9B384BA");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__D80BB093AEB10689");
 
             entity.ToTable("Role");
 
@@ -247,7 +269,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Salary>(entity =>
         {
-            entity.HasKey(e => e.SalaryId).HasName("PK__Salary__D64F722C0C49F3C9");
+            entity.HasKey(e => e.SalaryId).HasName("PK__Salary__D64F722CE5D7FCAF");
 
             entity.ToTable("Salary");
 
@@ -264,7 +286,7 @@ public partial class Prn212Context : DbContext
 
         modelBuilder.Entity<Status>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__Status__5191052449D459FC");
+            entity.HasKey(e => e.StatusId).HasName("PK__Status__51910524BAD11922");
 
             entity.ToTable("Status");
 

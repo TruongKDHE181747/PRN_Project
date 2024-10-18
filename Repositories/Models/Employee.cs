@@ -55,6 +55,8 @@ public partial class Employee
 
     public virtual ICollection<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
 
+    public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+
     public virtual Role? Role { get; set; }
 
     public virtual ICollection<Salary> Salaries { get; set; } = new List<Salary>();
