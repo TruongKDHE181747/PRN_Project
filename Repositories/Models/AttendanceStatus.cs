@@ -9,5 +9,7 @@ public partial class AttendanceStatus
 
     public string? StatusName { get; set; }
 
+    public bool? IsActive { get; set; }
+
     public virtual ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
 }

@@ -11,6 +11,10 @@ public partial class Attendance
 
     public DateOnly? AttendanceDate { get; set; }
 
+    public TimeOnly? TimeIn { get; set; }
+
+    public TimeOnly? TimeOut { get; set; }
+
     public int? AttendanceStatusId { get; set; }
 
     public int? HoursWorked { get; set; }

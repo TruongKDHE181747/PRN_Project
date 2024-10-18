@@ -9,5 +9,7 @@ public partial class RequestStatus
 
     public string? RequestStatusName { get; set; }
 
+    public bool? IsActive { get; set; }
+
     public virtual ICollection<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
 }

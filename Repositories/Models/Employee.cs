@@ -43,6 +43,8 @@ public partial class Employee
 
     public int? RoleId { get; set; }
 
+    public bool? IsActive { get; set; }
+
     public virtual ICollection<ActivityHistory> ActivityHistories { get; set; } = new List<ActivityHistory>();
 
     public virtual ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();

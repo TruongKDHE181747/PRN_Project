@@ -69,6 +69,10 @@ namespace DataGrid
 
         //Load data
         EmployeeServices employeeServices = new EmployeeServices();
+        DepartmentServices departmentServices = new DepartmentServices();
+        JobpositionServices jobpositionServices = new JobpositionServices();
+        RoleServices roleServices = new RoleServices();
+
         public void LoadAllEmployee()
         {
            //employeeDataGrid.Items.Clear();
@@ -77,8 +81,8 @@ namespace DataGrid
 
         public void LoadJobPosition()
         {
-            
-            cboJobPosition.ItemsSource = employeeServices.getEmployees().Select(e => e.JobPosition).Distinct();
+
+            cboJobPosition.ItemsSource = jobpositionServices.GetJobPositions();
             cboJobPosition.DisplayMemberPath = "JobPositionName";
             cboJobPosition.SelectedValuePath = "JobPositionId";
         }
@@ -86,8 +90,8 @@ namespace DataGrid
 
         public void LoadDepartment()
         {
-            
-            cboDepartment.ItemsSource = employeeServices.getEmployees().Select(e => e.Department).Distinct();
+
+            cboDepartment.ItemsSource = departmentServices.GetDepartments();
             cboDepartment.DisplayMemberPath = "DepartmentName";
             cboDepartment.SelectedValuePath = "DepartmentId";
         }

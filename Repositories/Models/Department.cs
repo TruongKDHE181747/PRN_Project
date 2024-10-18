@@ -11,5 +11,7 @@ public partial class Department
 
     public string? DepartmentAddress { get; set; }
 
+    public bool? IsActive { get; set; }
+
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 }

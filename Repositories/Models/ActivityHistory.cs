@@ -15,5 +15,7 @@ public partial class ActivityHistory
 
     public DateOnly? Date { get; set; }
 
+    public TimeOnly? Time { get; set; }
+
     public virtual Employee? Employee { get; set; }
 }

@@ -15,6 +15,8 @@ public partial class LeaveRequest
 
     public DateOnly? EndDate { get; set; }
 
+    public DateOnly? SubmitedOn { get; set; }
+
     public int? RequestStatusId { get; set; }
 
     public virtual Employee? Employee { get; set; }

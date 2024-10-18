@@ -9,5 +9,7 @@ public partial class LeaveType
 
     public string? LeaveTypeName { get; set; }
 
+    public bool? IsActive { get; set; }
+
     public virtual ICollection<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
 }
