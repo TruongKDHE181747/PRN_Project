@@ -221,6 +221,13 @@ namespace DataGrid
             }
 
         }
+
+        private void btnMessages_Click(object sender, RoutedEventArgs e)
+        {
+            NotifactionList notifactionList = new NotifactionList();
+            notifactionList.Show();
+            this.Close();
+        }
     }
 
  
