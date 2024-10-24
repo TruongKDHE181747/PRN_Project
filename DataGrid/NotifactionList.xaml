@@ -141,7 +141,7 @@
                 <Button x:Name="btnAddNotification" Style="{StaticResource addButton}" Click="btnAddNotification_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
-                        <TextBlock Text="Add New Employee"/>
+                        <TextBlock Text="Send Notification"/>
                     </StackPanel>
                 </Button>
 

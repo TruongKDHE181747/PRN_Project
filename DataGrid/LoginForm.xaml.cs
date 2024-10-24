@@ -40,6 +40,7 @@ namespace DataGrid
 
             if (employee != null && employee.Password.Equals(txtPass.Password))
             {
+                Application.Current.Properties["loginEmployee"] = employee;
                 this.Hide();
                 MainWindow mw = new MainWindow();
                 mw.Show();

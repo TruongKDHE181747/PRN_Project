@@ -61,7 +61,9 @@ namespace DataGrid
 
         private void btnAddNotification_Click(object sender, RoutedEventArgs e)
         {
-
+            AddNotification addNotification = new AddNotification();
+            addNotification.Show();
+           
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
