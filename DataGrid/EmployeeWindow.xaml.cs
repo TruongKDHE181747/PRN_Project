@@ -2,6 +2,7 @@
 using Services;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +12,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.IO;
 using System.Xml.Linq;
 
 namespace DataGrid
@@ -19,10 +19,10 @@ namespace DataGrid
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EmployeeWindow : Window
     {
         public Employee selected_employee { get; set; } = null;
-        public MainWindow()
+        public EmployeeWindow()
         {
             InitializeComponent();
 
@@ -78,33 +78,11 @@ namespace DataGrid
         public void LoadAllEmployee()
         {
            //employeeDataGrid.Items.Clear();
-           employeeDataGrid.ItemsSource = employeeServices.getEmployees();
-        }
-
-        public void LoadJobPosition()
-        {
-
-            cboJobPosition.ItemsSource = jobpositionServices.GetJobPositions();
-            cboJobPosition.DisplayMemberPath = "JobPositionName";
-            cboJobPosition.SelectedValuePath = "JobPositionId";
+           employeeDataGrid.ItemsSource = employeeServices.getEmployees().Where(e => e.EmployeeId==selected_employee.EmployeeId);
         }
 
 
-        public void LoadDepartment()
-        {
 
-            cboDepartment.ItemsSource = departmentServices.GetDepartments();
-            cboDepartment.DisplayMemberPath = "DepartmentName";
-            cboDepartment.SelectedValuePath = "DepartmentId";
-        }
-
-        public void LoadGender()
-        {
-            List<string> sList = new List<string>();
-            sList.Add("Female");
-            sList.Add("Male"); 
-            cboGender.ItemsSource = sList;
-        }
 
         public void Load_Image(String uri)
         {
@@ -123,15 +101,14 @@ namespace DataGrid
             ibImage.ImageSource = new BitmapImage(new Uri(fileName));
         }
 
+
         public void LoadData()
         {
-            txtName.Text = "Admin: "+selected_employee.FirstName+" "+selected_employee.LastName;
+            txtName.Text = "Employee: " + selected_employee.FirstName + " " + selected_employee.LastName;
             Load_Image(selected_employee.Photo);
             txtCountEmployee.Text = employeeServices.getTotalEmployee() + " Employees";
             LoadAllEmployee();
-            LoadDepartment();
-            LoadJobPosition();
-            LoadGender();
+
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -151,74 +128,8 @@ namespace DataGrid
 
         }
 
-        public void FilterEmployee()
-        {
-            List<Employee> eList = employeeServices.getEmployees();
-            string name = txtEmployeeName.Text;
-            if (name.Length > 0)
-            {
+        
 
-                eList = eList.Where(e => (e.FirstName + " " + e.LastName).ToLower().Contains(name.ToLower())).ToList();
-            }
-
-            int departmentId = -1;
-            int jobpositionId = -1;
-            int gender = -1;
-
-            if (cboDepartment.SelectedIndex > -1)
-            {
-                departmentId = int.Parse(cboDepartment.SelectedValue + "");
-                eList = eList.Where(e => e.DepartmentId == departmentId).ToList();
-            }
-            if (cboJobPosition.SelectedIndex > -1)
-            {
-                jobpositionId = int.Parse(cboJobPosition.SelectedValue + "");
-                eList = eList.Where(e => e.JobPositionId == jobpositionId).ToList();
-            }
-            if (cboGender.SelectedIndex > -1)
-            {
-                gender = cboGender.SelectedIndex;   // index = 1 => Male, Index = 0 => Female
-                if (gender == 1)
-                {
-                    eList = eList.Where(e => e.Gender == true).ToList();
-                }
-                if (gender == 0)
-                {
-                    eList = eList.Where(e => e.Gender == false).ToList();
-                }
-            }
-            // employeeDataGrid.Items.Clear(); 
-            employeeDataGrid.ItemsSource = eList;
-        }
-
-        private void txtEmployeeName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            FilterEmployee();
-        }
-
-        private void cboDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterEmployee();
-        }
-
-        private void cboJobPosition_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterEmployee();
-        }
-
-        private void cboGender_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterEmployee();
-        }
-
-        private void btnResetFilter_Click(object sender, RoutedEventArgs e)
-        {
-            cboDepartment.SelectedIndex = -1;
-            cboJobPosition.SelectedIndex = -1;  
-            cboGender.SelectedIndex = -1;
-            txtEmployeeName.Text = "";
-            LoadAllEmployee();
-        }
 
         private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
         {

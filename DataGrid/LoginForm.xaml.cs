@@ -41,8 +41,18 @@ namespace DataGrid
             if (employee != null && employee.Password.Equals(txtPass.Password))
             {
                 this.Hide();
-                MainWindow mw = new MainWindow();
-                mw.Show();
+                if (employee.RoleId == 1)
+                {
+                    MainWindow mw = new MainWindow();
+                    mw.selected_employee = employee;
+                    mw.Show();
+                } else
+                {
+                    EmployeeWindow employeeWindow = new EmployeeWindow();
+                    employeeWindow.selected_employee = employee;
+                    employeeWindow.Show();
+                }
+                
 
             }
             else
