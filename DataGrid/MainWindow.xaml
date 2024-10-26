@@ -115,14 +115,24 @@
                 </Grid.RowDefinitions>
 
                 <!--Search Textbox-->
-                <Grid Width="300" HorizontalAlignment="Left">
-                    <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                        Panel.ZIndex="1" Text="Search here ..."
-                        Visibility="{Binding ElementName=textBoxSearch, Path=Text, Converter={StaticResource BoolToVis}}" />
+                <Grid Width="auto" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="0 20 20 0" x:Name="btnExport" Style="{StaticResource addButton}" Click="btnExport_Click" >
+                            <StackPanel Orientation="Horizontal">
+                                
+                                <TextBlock Text="Export to Excel"/>
+                                <Icon:PackIconMaterial Kind="ArrowRight" VerticalAlignment="Center" Margin="8 1 0 0" Width="11" Height="11"/>
+                            </StackPanel>
+                        </Button>
 
-                    <TextBox Foreground="#B0B9C6" BorderBrush="Black" Tag="Search" Name="textBoxSearch" Style="{StaticResource PlaceholderforTextBox}"/>
-
-                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
+                        <Button x:Name="btnImport" Style="{StaticResource addButton}" Click="btnImport_Click">
+                            <StackPanel Orientation="Horizontal">
+                                
+                                <TextBlock Text="Import from Excel"/>
+                                <Icon:PackIconMaterial Kind="ArrowDown" VerticalAlignment="Center" Margin="8 1 0 0" Width="11" Height="11"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
                 </Grid>
 
                 <!--Top Buttons-->
