@@ -40,7 +40,9 @@ namespace DataGrid
 
             if (employee != null && employee.Password.Equals(txtPass.Password))
             {
-                Application.Current.Properties["loginEmployee"] = employee;
+                Application.Current.Properties["loginEmployee"] = employee; 
+              //= session.setAtribute("loginEmployee", employee);
+
                 this.Hide();
                 if (employee.RoleId == 1)
                 {

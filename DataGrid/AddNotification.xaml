@@ -26,7 +26,7 @@
     </Window.Resources>
 
     <Grid>
-        <Border CornerRadius="10" BorderThickness="2" Opacity="0.95" Margin="-6,-13,6,13">
+        <Border CornerRadius="10" BorderThickness="2" Opacity="0.95">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#0099FF" Offset="0"/>
@@ -81,88 +81,93 @@
                                  AcceptsReturn="True"
                                  VerticalScrollBarVisibility="Auto"
                                  VerticalContentAlignment="Top"
-                                 Width="326" TextChanged="txtNotificationContent_TextChanged" Background="#FF2A1B87"/>
+                                 Width="326"/>
                     </StackPanel>
 
                     <!-- Department ComboBox -->
+                    <StackPanel Margin="0 0 0 20">
+                        <TextBlock Text="Department" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Width="326"/>
+                        <ComboBox x:Name="cboDepartment"
+          Width="326"
+          BorderBrush="White"
+          Foreground="White"
+          materialDesign:TextFieldAssist.HasClearButton="True"
+          DisplayMemberPath="DepartmentName"
+          SelectedValuePath="DepartmentId"
+          SelectedValue="{Binding Department.DepartmentId}" Loaded="cboDepartment_Loaded">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+                                    <Setter Property="Background" Value="White" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Padding" Value="8" />
+                                    <Setter Property="Margin" Value="-2" />
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </StackPanel>
 
-                    <TextBlock Text="Department" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Width="326"/>
-                    <ComboBox x:Name="cboDepartment" Width="326" BorderBrush="White" Foreground="White"
-                                  materialDesign:TextFieldAssist.HasClearButton="True"
-                                  Style="{StaticResource MaterialDesignOutlinedComboBox}" Loaded="cboDepartment_Loaded">
-                        <ComboBox.ItemContainerStyle>
-                            <Style TargetType="ComboBoxItem">
-                                <Setter Property="Background" Value="White" />
-                                <Setter Property="Foreground" Value="Black" />
-                                <Setter Property="Padding" Value="8" />
-                                <Setter Property="Margin" Value="-2" />
-                            </Style>
-                        </ComboBox.ItemContainerStyle>
+                    <!-- Add and Exit Buttons -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!-- Add Button -->
+                        <Button x:Name="btnSend" Content="SEND"
+                                BorderThickness="0"
+                                Foreground="White"
+                                FontSize="12"
+                                FontFamily="Montserrat"
+                                Cursor="Hand"
+                                Width="150"
+                                Height="40"
+                                Margin="0 0 20 0" Click="btnSend_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#0099FF"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#28AEED"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
 
-                    </ComboBox>
+                        <!-- Exit Button -->
+                        <Button x:Name="btnExit" Content="EXIT"
+                                BorderThickness="0"
+                                Foreground="White"
+                                FontSize="12"
+                                FontFamily="Montserrat"
+                                Cursor="Hand"
+                                Width="150"
+                                Height="40"
+                                Margin="20 0 0 0"
+                                Click="btnExit_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#0099FF"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#28AEED"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
-
-                <!-- Add Button -->
-                <Button x:Name="btnSend" Content="Send"
-                    BorderThickness="0"
-                    Foreground="White"
-                    FontSize="12"
-                    FontFamily="Montserrat"
-                    Cursor="Hand"
-                    Width="150"
-                    Height="40"
-                    HorizontalAlignment="Left"
-                    Click="btnSend_Click" Margin="26,230,0,26" Grid.Row="1" RenderTransformOrigin="0.117,0.225" Grid.Column="1">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#0099FF"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#28AEED"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border CornerRadius="20" Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button x:Name="btnExit" Content="Exit"
-                    BorderThickness="0"
-                    Foreground="White"
-                    FontSize="12"
-                    FontFamily="Montserrat"
-                    Cursor="Hand"
-                    Width="150"
-                    Height="40"
-                    HorizontalAlignment="Left"
-                    Click="btnSave_Click" Grid.Column="1" Margin="202,234,0,22" Grid.Row="1" RenderTransformOrigin="0.117,0.225">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#0099FF"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#28AEED"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border CornerRadius="20" Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-
-                <!-- Exit Button -->
-
             </Grid>
         </Border>
     </Grid>
