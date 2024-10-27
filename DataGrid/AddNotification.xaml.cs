@@ -24,6 +24,7 @@ namespace DataGrid
     {
         DepartmentServices departmentService = new DepartmentServices();
         NotificationService notificationService = new NotificationService();
+        ActivityHistoryService activityHistoryService = new ActivityHistoryService();
         public AddNotification()
         {
             InitializeComponent();
@@ -83,6 +84,18 @@ namespace DataGrid
                 notification.Time= TimeOnly.FromDateTime(DateTime.Now);
 
                 notificationService.AddNotification(notification);
+                
+                ActivityHistory activityHistory = new ActivityHistory();
+
+                activityHistory.EmployeeId = loginEmployee.EmployeeId;
+                activityHistory.Action = "Send notification";
+                activityHistory.Target= departmentService.GetDepartmentById(notification.DepartmentId).DepartmentName;
+                activityHistory.Date = DateOnly.FromDateTime(DateTime.Now);
+                activityHistory.Time = TimeOnly.FromDateTime(DateTime.Now);
+                 activityHistoryService.AddActivityHistory(activityHistory);
+
+
+
                 MessageBox.Show("Send notification successfully");
             }
             catch (Exception ex)
@@ -94,7 +107,7 @@ namespace DataGrid
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

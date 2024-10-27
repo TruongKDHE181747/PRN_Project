@@ -514,9 +514,21 @@ namespace DataGrid
                 employeeDataGrid.ItemsSource = employeeServices.getEmployees();
                 MessageBox.Show("Import successful", "Successful", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            
-            
+
+        private void employeeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
+
+        private void btnLeaveDay_Click(object sender, RoutedEventArgs e)
+        {
+            LeaveDayManagement leaveDayManagement = new LeaveDayManagement();
+            leaveDayManagement.Show();
+            this.Close();
+        }
+
+      
+    }
 }
 
  

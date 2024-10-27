@@ -14,5 +14,12 @@ namespace Services
         {
             return context.Departments.ToList();
         }
+
+        public Department? GetDepartmentById(int? id)
+        {
+            return context.Departments.FirstOrDefault(x => x.DepartmentId == id);
+        }
+
+
     }
 }

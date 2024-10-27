@@ -79,5 +79,13 @@ namespace Services
             return context.Employees.Where(e => e.PhoneNumber.ToLower().Equals(phone.ToLower())).FirstOrDefault();
         }
 
+        public List<Employee> GetAllEmployeeLeaveDay()
+        {
+            return context.Employees
+                .Include(e => e.Department)
+                .ToList();
+        }
+
+
     }
 }

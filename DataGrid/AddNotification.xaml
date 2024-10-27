@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataGrid"
         mc:Ignorable="d"
-        Title="Send Notification" Height="400" Width="1000"
+        Title="Send Notification" Height="400" Width="800"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
+        WindowStyle="None" ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True">
 
@@ -81,7 +81,7 @@
                                  AcceptsReturn="True"
                                  VerticalScrollBarVisibility="Auto"
                                  VerticalContentAlignment="Top"
-                                 Width="326"/>
+                                 Width="326" Background="#FF452EEE"/>
                     </StackPanel>
 
                     <!-- Department ComboBox -->

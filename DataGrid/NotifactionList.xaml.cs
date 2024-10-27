@@ -1,6 +1,8 @@
-﻿using Services;
+﻿using Repositories.Models;
+using Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,10 +28,19 @@ namespace DataGrid
             InitializeComponent();
         }
 
-        private void NotificationDataGrid_Loaded(object sender, RoutedEventArgs e)
+        public void NotificationDataGrid_Loaded(object sender, RoutedEventArgs e)
         {
 
            var notifications = notificationService.GetAll();
+            foreach (var notification in notifications)
+            {
+                if(notification.DepartmentId == null)
+                {
+                      notification.DepartmentId = 0;
+                     
+                }
+            }
+
 
             NotificationDataGrid.ItemsSource = notifications;
         }
@@ -47,6 +58,14 @@ namespace DataGrid
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
+        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var department = value as Department; // Giả sử `Department` là kiểu dữ liệu của thuộc tính này
+            if (department == null || department.DepartmentId == 0)
+                return "All";
+
+            return department?.DepartmentName ?? "All";
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -69,6 +88,23 @@ namespace DataGrid
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnNotificationRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            NotificationDataGrid_Loaded(sender, e);
+        }
+
+        private void btnDeleteNotification_Click(object sender, RoutedEventArgs e)
+        {
+          Notification notification =  NotificationDataGrid.SelectedItems as Notification;
+        }
+
+        private void btnLeaveDay_Click(object sender, RoutedEventArgs e)
+        {
+            LeaveDayManagement leaveDayManagement = new LeaveDayManagement();
+            leaveDayManagement.Show();
+            this.Close();
         }
     }
 }
