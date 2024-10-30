@@ -526,8 +526,12 @@ namespace DataGrid
             leaveDayManagement.Show();
             this.Close();
         }
-
-      
+        private void btnSalary_Click(object sender, RoutedEventArgs e)
+        {
+            SalaryManagement salaryManagement = new SalaryManagement();
+            salaryManagement.Show();
+            this.Close();
+        }
     }
 }
 
