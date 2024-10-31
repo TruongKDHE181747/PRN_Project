@@ -166,13 +166,14 @@ namespace DataGrid
         private void employeeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EmployeeAttendanceInMonth employeeAttendanceInMonth = new EmployeeAttendanceInMonth();
+
             if (employeeDataGrid.SelectedItem != null)
             {
                 var  selected_employee = employeeDataGrid.SelectedItem as Attendance;
                 if(selected_employee != null)
                 {
                     Application.Current.Properties["selected_employee"] = selected_employee;
-                    employeeAttendanceInMonth.Show();
+                    employeeAttendanceInMonth.ShowDialog();
                 }
                 
                 

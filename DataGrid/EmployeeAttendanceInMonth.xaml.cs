@@ -43,7 +43,7 @@ namespace DataGrid
                         selected_item.AttendanceDate.Value.Month,
                         selected_item.AttendanceDate.Value.Year);
                 }
-                
+
             }
             
         }
