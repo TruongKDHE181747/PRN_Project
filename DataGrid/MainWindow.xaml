@@ -179,6 +179,7 @@
                             <TextBlock Text="Reset Filter"/>
                         </StackPanel>
                     </Button>
+                
                 </StackPanel>
 
                 <!--Counter Title-->

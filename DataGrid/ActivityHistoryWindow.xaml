@@ -146,8 +146,29 @@
                 </StackPanel>
 
                 <!--Counter Title-->
-                <TextBlock x:Name="txtCountActivites" Text="68 Activites" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <TextBlock x:Name="txtCountActivites" Text="68 Activites" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    
+                    <StackPanel  Margin="200 0 0 0" HorizontalAlignment="Right" Orientation="Horizontal">
+                        <TextBlock Margin="20 0" Text="Modified Date"
+FontSize="18"
+           VerticalAlignment="Center"
+FontWeight="Medium"
+FontFamily="Montserrat"/>
+                        <DatePicker MinWidth="200" Name="dpDate" 
+                FontSize="13"    
+Style="{StaticResource MaterialDesignOutlinedDatePicker}" SelectedDateChanged="dpDate_SelectedDateChanged">
+
+                        </DatePicker>
+                        <Button x:Name="btnResetFilter" Margin="10 0 0 0" Style="{StaticResource addButton}" Click="btnResetFilter_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Refresh" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                                <TextBlock Text="Reset"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+                </StackPanel>
                 
 
                 <!--Filter Textbox-->

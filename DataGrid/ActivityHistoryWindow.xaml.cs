@@ -116,8 +116,22 @@ namespace DataGrid
             LoadData();
         }
 
-
+        private void dpDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime dt = DateTime.Parse(dpDate.Text);
+            DateOnly date = DateOnly.FromDateTime(dt);
+            
+            historyDataGrid.ItemsSource = activityHistoryServices.getAllHistory().Where(a => a.Date==date);
+            txtCountActivites.Text = activityHistoryServices.getAllHistory().Where(a => a.Date == date).Count()+ " Activities";
+            
         }
+
+        private void btnResetFilter_Click(object sender, RoutedEventArgs e)
+        {
+            txtCountActivites.Text = activityHistoryServices.getAllHistory().Count + " Activities";
+            LoadData();
+        }
+    }
 }
 
  
