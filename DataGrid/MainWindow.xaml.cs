@@ -533,6 +533,13 @@ namespace DataGrid
             salaryManagement.Show();
             this.Close();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            EmployeeAttendanceManagement employeeAttendanceManagement = new EmployeeAttendanceManagement();
+            employeeAttendanceManagement.Show();
+            this.Close();
+        }
     }
 }
 

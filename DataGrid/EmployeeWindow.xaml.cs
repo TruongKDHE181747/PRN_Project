@@ -156,12 +156,20 @@ namespace DataGrid
 
         }
 
+        private void btnAttendance_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeTimeBook employeeTimeBook = new EmployeeTimeBook();
+            employeeTimeBook.ShowDialog();
+        }
+
         private void btnMessages_Click(object sender, RoutedEventArgs e)
         {
-            NotifactionList notifactionList = new NotifactionList();
-            notifactionList.Show();
-            this.Close();
+            AddNotification addNotification = new AddNotification();
+            addNotification.ShowDialog();
+            LoadData();
         }
+
+        
     }
 
  
