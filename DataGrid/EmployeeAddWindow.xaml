@@ -415,7 +415,7 @@ Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
                         <ComboBox Width="326" Name="cboDepartment" BorderBrush="White" Foreground="White"
                         
  materialDesign:TextFieldAssist.HasClearButton="True"
- Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Top"
+ Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Top" 
 >
 
                             <ComboBox.ItemContainerStyle>

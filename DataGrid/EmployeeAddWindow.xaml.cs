@@ -267,5 +267,7 @@ namespace DataGrid
             activityHistory.Time = TimeOnly.FromDateTime(DateTime.Now);
             activityHistoryServices.addActivityHistory(activityHistory);
         }
+
+       
     }
 }

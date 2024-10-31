@@ -11,5 +11,11 @@ namespace Services
     public class NotificationService
     {
         public List<Notification> GetAll()=> new NotificationRepository().GetAll();
+
+
+        public void AddNotification(Notification notification)
+        {
+            new NotificationRepository().AddNotification(notification);
+        }
     }
 }

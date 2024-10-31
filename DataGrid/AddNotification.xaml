@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataGrid"
         mc:Ignorable="d"
-        Title="EmployeeAddWindow" Height="800" Width="1000"
+        Title="Send Notification" Height="400" Width="800"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
+        WindowStyle="None" ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True">
 
@@ -17,20 +17,15 @@
             <Setter Property="Margin" Value="0 0 0 20"></Setter>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="white"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="Margin" Value="0 0 0 10"></Setter>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="16"></Setter>
         </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="FontSize" Value="16"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
-            <Setter Property="Width" Value="326"></Setter>
-        </Style>
     </Window.Resources>
 
-    <Grid Loaded="Grid_Loaded">
+    <Grid>
         <Border CornerRadius="10" BorderThickness="2" Opacity="0.95">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -59,53 +54,120 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Height="82" VerticalAlignment="Top" Width="auto">
+                <!-- Title -->
+                <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Height="82" VerticalAlignment="Top" Width="auto">
                     <TextBlock Text="SEND NOTIFICATION"
                                Foreground="White"
                                FontSize="28"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
-                               Cursor="Hand"
                                Margin="180,30,0,0" Width="377"/>
                 </StackPanel>
 
+                <!-- Notification Content -->
                 <StackPanel Grid.Row="1" Grid.Column="1">
-                    <!-- Contents -->
                     <StackPanel Margin="0 0 0 20">
-                        <TextBlock Text="Contents" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Width="326"/>
-                        <TextBox x:Name="txtUsername"
+                        <TextBlock Text="Notification Content" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Width="326"/>
+                        <TextBox x:Name="txtNotificationContent"
                                  FontWeight="Medium"
                                  FontFamily="Montserrat"
                                  Foreground="White"
                                  CaretBrush="LightGray"
                                  BorderBrush="DarkGray"
                                  BorderThickness="0,0,0,2"
-                                 Height="28"
-                                 VerticalContentAlignment="Center"
-                                 Width="407" TextChanged="txtUsername_TextChanged">
-                            <TextBox.Background>
-                                <LinearGradientBrush/>
-                            </TextBox.Background>
-                        </TextBox>
+                                 Height="100" 
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 VerticalContentAlignment="Top"
+                                 Width="326" Background="#FF452EEE"/>
                     </StackPanel>
 
-                    <!-- Sends at ComboBox -->
+                    <!-- Department ComboBox -->
                     <StackPanel Margin="0 0 0 20">
-                        <TextBlock Text="Sends at" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Width="326"/>
-                        <ComboBox x:Name="cmbDepartments" SelectedIndex="0">
-                            <ComboBoxItem Content="All"/>
-                            <ComboBoxItem Content="Department 1"/>
-                            <ComboBoxItem Content="Department 2"/>
-                            <ComboBoxItem Content="Department 3"/>
-                            <!-- Thêm các department khác nếu cần -->
+                        <TextBlock Text="Department" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Width="326"/>
+                        <ComboBox x:Name="cboDepartment"
+          Width="326"
+          BorderBrush="White"
+          Foreground="White"
+          materialDesign:TextFieldAssist.HasClearButton="True"
+          DisplayMemberPath="DepartmentName"
+          SelectedValuePath="DepartmentId"
+          SelectedValue="{Binding Department.DepartmentId}" Loaded="cboDepartment_Loaded">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+                                    <Setter Property="Background" Value="White" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Padding" Value="8" />
+                                    <Setter Property="Margin" Value="-2" />
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
                         </ComboBox>
                     </StackPanel>
-                </StackPanel>
 
-                <StackPanel Grid.Row="1" Grid.Column="2">
-                    <StackPanel Margin="30 20 0 20" HorizontalAlignment="Left"/>
-                </StackPanel>
+                    <!-- Add and Exit Buttons -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!-- Add Button -->
+                        <Button x:Name="btnSend" Content="SEND"
+                                BorderThickness="0"
+                                Foreground="White"
+                                FontSize="12"
+                                FontFamily="Montserrat"
+                                Cursor="Hand"
+                                Width="150"
+                                Height="40"
+                                Margin="0 0 20 0" Click="btnSend_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#0099FF"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#28AEED"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
 
+                        <!-- Exit Button -->
+                        <Button x:Name="btnExit" Content="EXIT"
+                                BorderThickness="0"
+                                Foreground="White"
+                                FontSize="12"
+                                FontFamily="Montserrat"
+                                Cursor="Hand"
+                                Width="150"
+                                Height="40"
+                                Margin="20 0 0 0"
+                                Click="btnExit_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#0099FF"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#28AEED"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
             </Grid>
         </Border>
     </Grid>

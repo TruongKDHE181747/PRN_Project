@@ -74,7 +74,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}">
+                            <Button x:Name="btnSalary" Style="{StaticResource menuButton}" Click="btnSalary_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="CashMultiple" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Salary"/>
@@ -87,7 +87,12 @@
                                     <TextBlock Text="Messages"/>
                                 </StackPanel>
                             </Button>
-
+                            <Button x:Name="btnLeaveDay" Style="{StaticResource menuButton}" Click="btnLeaveDay_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Calendar" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Leave Day"/>
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
 
                         <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="Button_Click">
@@ -95,6 +100,10 @@
                                 <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Logout"/>
                             </StackPanel>
+                            
+                            
+                            
+
                         </Button>
 
                     </DockPanel>
@@ -207,7 +216,7 @@
                 
 
                 <!--Members Data Grid-->
-                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="employeeDataGrid" Style="{DynamicResource DataGridStyle1}">
+                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="employeeDataGrid" Style="{DynamicResource DataGridStyle1}" SelectionChanged="employeeDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding EmployeeId}"/>
