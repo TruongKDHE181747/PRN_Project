@@ -166,18 +166,15 @@ namespace DataGrid
         private void employeeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EmployeeAttendanceInMonth employeeAttendanceInMonth = new EmployeeAttendanceInMonth();
-
-            if (employeeDataGrid.SelectedItem != null)
-            {
-                var  selected_employee = employeeDataGrid.SelectedItem as Attendance;
-                if(selected_employee != null)
+            AttendanceSummary selected_attendance = employeeDataGrid.SelectedItem as AttendanceSummary;
+                if(selected_attendance != null)
                 {
-                    Application.Current.Properties["selected_employee"] = selected_employee;
+                    Application.Current.Properties["selected_employee"] = selected_attendance;
                     employeeAttendanceInMonth.ShowDialog();
                 }
                 
                 
-            }
+            
         }
 
         private void txtEmployeeName_TextChanged(object sender, TextChangedEventArgs e)
