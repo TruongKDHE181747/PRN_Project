@@ -262,7 +262,7 @@ Width="326"
     FontWeight="Medium"
     FontFamily="Montserrat"                             
     Width="326"/>
-                        <TextBox x:Name="txtTotalLeaveDays"
+                        <TextBox IsReadOnly="True" x:Name="txtTotalLeaveDays"
     FontWeight="Medium"
     FontFamily="Montserrat"                            
     Foreground="White"
@@ -432,7 +432,7 @@ Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
     FontWeight="Medium"
     FontFamily="Montserrat"                             
     Width="326"/>
-                        <TextBox x:Name="txtAvailableDays"
+                        <TextBox IsReadOnly="True" x:Name="txtAvailableDays"
     FontWeight="Medium"
     FontFamily="Montserrat"                            
     Foreground="White"

@@ -105,9 +105,10 @@ namespace DataGrid
 
         public void LoadData()
         {
+            Application.Current.Properties["employee"] = selected_employee;
             txtName.Text = "Employee: " + selected_employee.FirstName + " " + selected_employee.LastName;
             Load_Image(selected_employee.Photo);
-            txtCountEmployee.Text = employeeServices.getTotalEmployee() + " Employees";
+            txtCountEmployee.Text = "1 Employee";
             LoadAllEmployee();
 
         }
@@ -122,10 +123,11 @@ namespace DataGrid
         {
             Employee employee = employeeDataGrid.SelectedItem as Employee;
 
-            EmployeeDetails employeeDetail = new EmployeeDetails();
+            EmployeeWindowDetails employeeDetail = new EmployeeWindowDetails();
             employeeDetail.selected_employee = employee;
             employeeDetail.ShowDialog();
-            LoadAllEmployee();
+            
+            LoadData();
 
         }
 
@@ -155,50 +157,24 @@ namespace DataGrid
 
         }
 
+        private void btnAttendance_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeTimeBook employeeTimeBook = new EmployeeTimeBook();
+            employeeTimeBook.ShowDialog();
+        }
+
         private void btnMessages_Click(object sender, RoutedEventArgs e)
         {
-            NotifactionList notifactionList = new NotifactionList();
-            notifactionList.Show();
-            this.Close();
+            AddNotification addNotification = new AddNotification();
+            addNotification.ShowDialog();
+            LoadData();
         }
 
-        private void notificationDatagrid_Loaded(object sender, RoutedEventArgs e)
+        private void btnSalary_Click(object sender, RoutedEventArgs e)
         {
-            var loginEmployee= Application.Current.Properties["loginEmployee"] as Employee;
-
-
-            var notification = notificationService.GetTop3NotificationEmployee(loginEmployee.DepartmentId);
-              
-           notificationDatagrid.ItemsSource = notification;
-            txtNumberNotification.Text = notification.Count.ToString();
-
-        }
-
-        private void btnNotification_Click(object sender, RoutedEventArgs e)
-        {
-            if(notificationDatagrid.Visibility == Visibility.Visible)
-            {
-                notificationDatagrid.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                notificationDatagrid.Visibility = Visibility.Visible;
-                notificationDatagrid_Loaded(sender, e);
-            }
-
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnNotificationList_Click(object sender, RoutedEventArgs e)
-        {
-            EmployeeNotification employeeNotificationList = new EmployeeNotification();
-            employeeNotificationList.Show();
-         
+            EmployeeSalary employeeSalary = new EmployeeSalary();
+            employeeSalary.ShowDialog();
+            LoadData();
         }
     }
 
