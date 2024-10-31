@@ -97,7 +97,17 @@ namespace DataGrid
 
         private void btnDeleteNotification_Click(object sender, RoutedEventArgs e)
         {
-          Notification notification =  NotificationDataGrid.SelectedItems as Notification;
+            try
+            {
+                Notification? notification = NotificationDataGrid.SelectedItems as Notification;
+                notificationService.DeleteNotification(notification.NotificationId);
+                MessageBox.Show(notification.NotificationId.ToString());
+                NotificationDataGrid_Loaded(sender, e);
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnLeaveDay_Click(object sender, RoutedEventArgs e)

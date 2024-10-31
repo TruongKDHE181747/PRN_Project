@@ -176,6 +176,37 @@ namespace DataGrid
             employeeSalary.ShowDialog();
             LoadData();
         }
+
+        private void btnNotification_Click(object sender, RoutedEventArgs e)
+        {
+            if(notificationDatagrid.Visibility == Visibility.Visible)
+            {
+                notificationDatagrid.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                notificationDatagrid.Visibility = Visibility.Visible;
+            }
+
+
+        }
+
+        private void btnNotificationList_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeNotification employeeNotification = new EmployeeNotification();
+            employeeNotification.Show();
+          
+
+
+        }
+
+        private void notificationDatagrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            var loginemployee=Application.Current.Properties["loginEmployee"] as Employee;
+
+                  var notification = notificationService.GetTop3NotificationEmployee(loginemployee.DepartmentId);
+                  notificationDatagrid.ItemsSource = notification;
+        }
     }
 
  
