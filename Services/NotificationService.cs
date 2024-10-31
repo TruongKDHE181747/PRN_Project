@@ -17,5 +17,17 @@ namespace Services
         {
             new NotificationRepository().AddNotification(notification);
         }
+        public void DeleteNotification(int id)
+        {
+            Prn212Context context = new Prn212Context();
+           Notification notification = context.Notifications.Find(id);
+            context.Notifications.Remove(notification);
+
+
+            context.SaveChanges();
+        }
+
+        public List<Notification> GetNotificationForEmployee(int? departmentId) => new NotificationRepository().GetNotificationForEmployee(departmentId);
+        public List<Notification> GetTop3NotificationEmployee(int? departmentId) => new NotificationRepository().GetTop3NotificationForEmployee(departmentId);
     }
 }

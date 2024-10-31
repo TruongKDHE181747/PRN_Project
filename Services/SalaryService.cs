@@ -20,6 +20,10 @@ namespace Services
         {
             return context.Salaries.Include(s => s.Employee).ToList();
         }
+        public List<Salary> GetEmployeeSalaries()
+        {
+            return context.Salaries.Include(s => s.EmployeeId).ToList();
+        }
         public int CalculateTotalIncome(int basicSalary, int? allowance, int? bonus, int? penalty)
         {
             return basicSalary + (allowance ?? 0) + (bonus ?? 0) - (penalty ?? 0);

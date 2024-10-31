@@ -30,22 +30,12 @@ namespace DataGrid
 
         private void AttendanceDataGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            Attendance? selected_item = Application.Current.Properties["SelectedEmployee"] as Attendance;
+            AttendanceSummary? selected_item = Application.Current.Properties["selected_employee"] as AttendanceSummary;
 
             // Check if selected_item is not null
-            if (selected_item != null)
-            {
-                // Check if AttendanceDate is not null
-                if (selected_item.AttendanceDate.HasValue)
-                {
-                    AttendanceDataGrid.ItemsSource = attendanceServices.GetAttendanceInMonth(
-                        selected_item.EmployeeId ?? 0, // Use the null-coalescing operator to provide a default value if EmployeeId is null
-                        selected_item.AttendanceDate.Value.Month,
-                        selected_item.AttendanceDate.Value.Year);
-                }
+            AttendanceDataGrid.ItemsSource = attendanceServices.GetAttendanceInMonth(selected_item.EmployeeId, selected_item.Month,selected_item.Year);
 
-            }
-            
+
         }
     }
 }

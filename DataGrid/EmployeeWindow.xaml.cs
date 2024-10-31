@@ -21,6 +21,7 @@ namespace DataGrid
     /// </summary>
     public partial class EmployeeWindow : Window
     {
+        NotificationService notificationService = new NotificationService();
         public Employee selected_employee { get; set; } = null;
         public EmployeeWindow()
         {
@@ -169,7 +170,43 @@ namespace DataGrid
             LoadData();
         }
 
-        
+        private void btnSalary_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeSalary employeeSalary = new EmployeeSalary();
+            employeeSalary.Show();
+            LoadData();
+        }
+
+        private void btnNotification_Click(object sender, RoutedEventArgs e)
+        {
+            if(notificationDatagrid.Visibility == Visibility.Visible)
+            {
+                notificationDatagrid.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                notificationDatagrid.Visibility = Visibility.Visible;
+            }
+
+
+        }
+
+        private void btnNotificationList_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeNotification employeeNotification = new EmployeeNotification();
+            employeeNotification.Show();
+          
+
+
+        }
+
+        private void notificationDatagrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            var loginemployee=Application.Current.Properties["loginEmployee"] as Employee;
+
+                  var notification = notificationService.GetTop3NotificationEmployee(loginemployee.DepartmentId);
+                  notificationDatagrid.ItemsSource = notification;
+        }
     }
 
  
