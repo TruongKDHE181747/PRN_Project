@@ -27,5 +27,19 @@ namespace Repositories
             }
         }
 
+        public List<Notification> GetNotificationForEmployee(int? departmentId)
+        {
+            using(var context = new Prn212Context())
+            {
+                 return context.Notifications.Include(Employee => Employee.CreateByNavigation).Where(d=>d.DepartmentId == departmentId  ||  d.DepartmentId == 5).OrderByDescending(date=>date.SendAt).OrderByDescending(time=>time.SendAt).ToList();
+            }
+        }
+        public List<Notification> GetTop3NotificationForEmployee(int? departmentId)
+        {
+            using (var context = new Prn212Context())
+            {
+                return context.Notifications.Where(d => d.DepartmentId == departmentId || d.DepartmentId == 5).OrderByDescending(date => date.SendAt).OrderByDescending(time => time.SendAt).Take(3).ToList();
+            }
+        }
     }
 }

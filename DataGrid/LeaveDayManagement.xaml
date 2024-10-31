@@ -218,20 +218,20 @@
 
                         <DataGridTextColumn Header="Leave type" Binding="{Binding LeaveType.LeaveTypeName}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="End Date" Binding="{Binding EndDate.DepartmentName, TargetNullValue=All}" IsReadOnly="True" Width="*"  />
+                        <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" IsReadOnly="True" Width="*"  />
                         <DataGridTextColumn Header="Submitted" Binding="{Binding SubmitedOn}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Status" Binding="{Binding RequestStatus.RequestStatusName}" IsReadOnly="True" Width="*"/>
 
 
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="btnAccept" Style="{StaticResource addButton}" Click="btnRefresh_Click" Margin="10,62,0,10" Grid.Row="1" Width="63" HorizontalAlignment="Left" Grid.RowSpan="4" Visibility="Collapsed">
+                <Button x:Name="btnAccept" Style="{StaticResource addButton}" Click="btnAccept_Click" Margin="10,62,0,10" Grid.Row="1" Width="63" HorizontalAlignment="Left" Grid.RowSpan="4" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Check" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
                         <TextBlock Text="Accept"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnReject" Style="{StaticResource addButton}" Click="btnRefresh_Click" Margin="100,62,0,10" Grid.Row="1" Width="63" HorizontalAlignment="Left" Grid.RowSpan="4" Visibility="Collapsed">
+                <Button x:Name="btnReject" Style="{StaticResource addButton}" Click="btnReject_Click" Margin="100,62,0,10" Grid.Row="1" Width="63" HorizontalAlignment="Left" Grid.RowSpan="4" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Close" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
                         <TextBlock Text="Reject"/>

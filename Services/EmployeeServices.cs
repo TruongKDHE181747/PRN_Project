@@ -86,11 +86,6 @@ namespace Services
                 .ToList();
         }
 
-        public List<Employee> GetAllEmployeeSalary()
-        {
-            return context.Employees
-                .Include(e => e.Salaries)
-                .ToList();
-        }
+
     }
 }

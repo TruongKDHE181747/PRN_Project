@@ -121,21 +121,21 @@
                 </Grid.RowDefinitions>
 
                 <!--Search Textbox-->
-                
+
 
                 <!--Top Buttons-->
                 <Button Style="{StaticResource topButton}" Margin="0 0 20 0" Background="#dcdcdc">
                     <Icon:PackIconMaterial Kind="Cog"/>
                 </Button>
 
-                <Button Style="{StaticResource topButton}" Margin="0 0 55 0">
+                <Button x:Name="btnNotification" Style="{StaticResource topButton}" Margin="0 0 55 0" Click="btnNotification_Click">
                     <Icon:PackIconMaterial Kind="Bell"/>
                 </Button>
 
                 <!--Page Title-->
                 <TextBlock Name="txtName" Text="Members" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" Foreground="#121518" HorizontalAlignment="Left"/>
 
-                
+
 
                 <!--Seprator-->
                 <Separator Height="1" Grid.Row="3" Background="#DAE2EA" Margin="0 -1 0 10"/>
@@ -145,17 +145,18 @@
                     <Button Style="{StaticResource tabButton}" Content="Club staff" BorderBrush="#784FF2"/>
                     <Button Style="{StaticResource tabButton}" Content="Players"/>
                     <Button Style="{StaticResource tabButton}" Content="Archived"/>
-                    
-                   
+                    <Button x:Name="btnNotificationList" Style="{StaticResource tabButton}" Content="Notification" Width="136" Click="btnNotificationList_Click"/>
+
+
                 </StackPanel>
 
                 <!--Counter Title-->
                 <TextBlock x:Name="txtCountEmployee" Text="68 Employees" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                
+
 
                 <!--Filter Textbox-->
-                
+
 
                 <!--Members Data Grid-->
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="employeeDataGrid" Style="{DynamicResource DataGridStyle1}">
@@ -233,6 +234,22 @@
                         </Button>
                     </StackPanel>
                 </Border>
+                <DataGrid  RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="notificationDatagrid" Style="{DynamicResource DataGridStyle1}" Margin="469,0,-3,243"  Loaded="notificationDatagrid_Loaded" Visibility="Collapsed" Grid.Row="1" Grid.RowSpan="5">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="" Binding="{Binding Content}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="" Binding="{Binding SendAt}" IsReadOnly="True" Width="*"/>
+
+                    </DataGrid.Columns>
+                   
+
+
+
+
+
+
+
+                </DataGrid>
+                <TextBlock x:Name="txtNumberNotification" HorizontalAlignment="Left" Margin="767,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="19" Height="19" Grid.RowSpan="2" Foreground="Red"/>
 
             </Grid>
 

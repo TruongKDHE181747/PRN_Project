@@ -21,6 +21,7 @@ namespace DataGrid
     /// </summary>
     public partial class EmployeeWindow : Window
     {
+        NotificationService notificationService = new NotificationService();
         public Employee selected_employee { get; set; } = null;
         public EmployeeWindow()
         {
@@ -175,7 +176,6 @@ namespace DataGrid
             employeeSalary.Show();
             LoadData();
         }
-        
     }
 
  

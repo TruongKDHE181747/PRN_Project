@@ -49,14 +49,9 @@ namespace DataGrid
 
         private void cboDepartment_Loaded(object sender, RoutedEventArgs e)
         {
-            var allDepartment = new Department
-            {
-                DepartmentId = 0,
-                DepartmentName = "All"
-
-            };
+           
             var listdepartment = departmentService.GetDepartments();
-            listdepartment.Add(allDepartment);
+          
 
             cboDepartment.ItemsSource = listdepartment;
             cboDepartment.DisplayMemberPath = "DepartmentName";

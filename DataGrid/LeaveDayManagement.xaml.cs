@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using Repositories.Models;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace DataGrid
     public partial class LeaveDayManagement : Window
     {
         EmployeeServices employeeServices = new EmployeeServices();
+        LeaveDayService leaveDayService = new LeaveDayService();
         public LeaveDayManagement()
         {
             InitializeComponent();
@@ -51,7 +53,8 @@ namespace DataGrid
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-
+            LeaveDayListDataGrid_Loaded(sender, e);
+            LeaveDayRequestDataGrid_Loaded(sender, e);
         }
 
         private void LeaveDayListDataGrid_Loaded(object sender, RoutedEventArgs e)
@@ -62,7 +65,8 @@ namespace DataGrid
 
         private void LeaveDayRequestDataGrid_Loaded(object sender, RoutedEventArgs e)
         {
-
+            var leaveDayRequest = leaveDayService.GetAllLeaveDay();
+            LeaveDayRequestDataGrid.ItemsSource = leaveDayRequest;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -78,6 +82,66 @@ namespace DataGrid
         private void btnLeaveDay_Click(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                LeaveRequest leaveRequest = LeaveDayRequestDataGrid.SelectedItem as LeaveRequest;
+                if (leaveRequest.RequestStatusId != 1)
+                {
+                    throw new Exception("This request is processed");
+                }
+                else
+                {
+                    //leaveRequest.RequestStatusId = 2;
+                    leaveDayService.Update(leaveRequest,2);
+                    MessageBox.Show("Accepted");
+                    Employee? employee = employeeServices.GetEmployeeById(leaveRequest.EmployeeId);
+                    DateTime startDate = DateTime.Parse(leaveRequest.StartDate.ToString());
+                    DateTime endDate = DateTime.Parse(leaveRequest.EndDate.ToString());
+                    int totalLeaveDays = (int)(endDate - startDate).TotalDays;
+                    employee.AvailableLeaveDays -= totalLeaveDays;
+                    employeeServices.UpdateEmployee(employee);
+                    LeaveDayRequestDataGrid_Loaded(sender, e);
+                    LeaveDayListDataGrid_Loaded(sender, e);
+                }
+               
+                
+
+            }
+            catch (Exception ex)
+            {
+               MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void btnReject_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                LeaveRequest leaveRequest = LeaveDayRequestDataGrid.SelectedItem as LeaveRequest;
+                if (leaveRequest.RequestStatusId != 1)
+                {
+                    throw new Exception("This request is processed");
+                }
+                else
+                {
+                    //leaveRequest.RequestStatusId = 2;
+                    leaveDayService.Update(leaveRequest, 3);
+                    MessageBox.Show("Rejected");
+                      LeaveDayRequestDataGrid_Loaded(sender, e);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
