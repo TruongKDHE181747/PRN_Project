@@ -127,16 +127,16 @@
                 </Button>
 
                 <!-- Data Grid for Salary Information -->
-                <DataGrid x:Name="SalaryDataGrid" Grid.Row="2" Margin="0,10,0,6" AutoGenerateColumns="False">
+                <DataGrid x:Name="SalaryDataGrid" Grid.Row="2" Margin="0,10,0,6" AutoGenerateColumns="False" SelectionChanged="SalaryDataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="50" Binding="{Binding EmployeeId}"/>
                         <DataGridTextColumn Header="First Name" Binding="{Binding Employee.FirstName}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Last Name" Binding="{Binding Employee.LastName}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Basic Salary" Binding="{Binding Basic_salary}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Basic Salary" Binding="{Binding BasicSalary}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Allowance" Binding="{Binding Allowance}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Bonus" Binding="{Binding Bonus}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Penalty" Binding="{Binding Penalty}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Payment Date" Binding="{Binding Payment_date}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Payment Date" Binding="{Binding PaymentDate}" IsReadOnly="True" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

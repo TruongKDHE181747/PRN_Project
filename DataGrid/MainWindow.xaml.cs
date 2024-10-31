@@ -526,19 +526,11 @@ namespace DataGrid
             leaveDayManagement.Show();
             this.Close();
         }
-
-        
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void btnSalary_Click(object sender, RoutedEventArgs e)
         {
-            EmployeeAttendanceManagement employeeAttendanceManagement = new EmployeeAttendanceManagement();
-            employeeAttendanceManagement.Show();
+            SalaryManagement salaryManagement = new SalaryManagement();
+            salaryManagement.Show();
             this.Close();
-        }
-
-        private void btnAttendance_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
