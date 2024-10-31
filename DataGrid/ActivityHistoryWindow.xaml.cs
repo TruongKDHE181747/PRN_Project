@@ -2,7 +2,6 @@
 using Services;
 using System.Collections;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,17 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.IO;
 using System.Xml.Linq;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
+using Microsoft.Win32;
 
 namespace DataGrid
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class EmployeeWindow : Window
+    public partial class ActivityHistoryWindow : Window
     {
         public Employee selected_employee { get; set; } = null;
-        public EmployeeWindow()
+        public ActivityHistoryWindow()
         {
             InitializeComponent();
 
@@ -71,18 +74,20 @@ namespace DataGrid
 
         //Load data
         EmployeeServices employeeServices = new EmployeeServices();
-        DepartmentServices departmentServices = new DepartmentServices();
-        JobpositionServices jobpositionServices = new JobpositionServices();
-        RoleServices roleServices = new RoleServices();
+        ActivityHistoryServices activityHistoryServices = new ActivityHistoryServices();    
 
-        public void LoadAllEmployee()
+        public void LoadAllHistory()
         {
-           //employeeDataGrid.Items.Clear();
-           employeeDataGrid.ItemsSource = employeeServices.getEmployees().Where(e => e.EmployeeId==selected_employee.EmployeeId);
+            //employeeDataGrid.Items.Clear();
+            historyDataGrid.ItemsSource = activityHistoryServices.getAllHistory();
         }
 
+       
 
 
+        
+
+     
 
         public void Load_Image(String uri)
         {
@@ -101,70 +106,21 @@ namespace DataGrid
             ibImage.ImageSource = new BitmapImage(new Uri(fileName));
         }
 
-
         public void LoadData()
         {
-            Application.Current.Properties["employee"] = selected_employee;
-            txtName.Text = "Employee: " + selected_employee.FirstName + " " + selected_employee.LastName;
-            Load_Image(selected_employee.Photo);
-            txtCountEmployee.Text = "1 Employee";
-            LoadAllEmployee();
-
+            LoadAllHistory();
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            //btnAddEmployee.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("white"));
-            //btnAddEmployee.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("black"));
+            txtCountActivites.Text = activityHistoryServices.getAllHistory().Count+" Activities";
             LoadData();
         }
 
-        private void btnEmployeeDetail_Click(object sender, RoutedEventArgs e)
-        {
-            Employee employee = employeeDataGrid.SelectedItem as Employee;
-
-            EmployeeWindowDetails employeeDetail = new EmployeeWindowDetails();
-            employeeDetail.selected_employee = employee;
-            employeeDetail.ShowDialog();
-            
-            LoadData();
 
         }
-
-        
-
-
-        private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
-        {
-            EmployeeAddWindow employeeAddWindow = new EmployeeAddWindow();
-            employeeAddWindow.ShowDialog();
-            LoadData(); 
-            
-        }
-
-        private void btnHideEmployee_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Do you want to change Status of this Employee!", "Change Status", MessageBoxButton.YesNo, MessageBoxImage.Question); 
-            if(result == MessageBoxResult.Yes)
-            {
-                
-                Employee employee = employeeDataGrid.SelectedItem as Employee;
-                employee.StatusId = 2;
-                employeeServices.UpdateEmployee(employee);
-                MessageBox.Show("Change successful!", "Change Status", MessageBoxButton.OK, MessageBoxImage.Information);
-                LoadData(); 
-            }
-
-        }
-
-        private void btnMessages_Click(object sender, RoutedEventArgs e)
-        {
-            NotifactionList notifactionList = new NotifactionList();
-            notifactionList.Show();
-            this.Close();
-        }
-    }
+}
 
  
 
-}
+
 

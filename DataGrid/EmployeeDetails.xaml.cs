@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 using MaterialDesignThemes.Wpf;
 using Repositories.Models;
 using Services;
@@ -29,6 +28,7 @@ namespace DataGrid
         JobpositionServices jobpositionServices = new JobpositionServices();
         RoleServices roleServices = new RoleServices();
         StatusServices statusServices = new StatusServices();
+        ActivityHistoryServices activityHistoryServices = new ActivityHistoryServices();
 
         public Employee selected_employee { get; set; } = null;
         string uri_after_upload_file = "";
@@ -194,7 +194,7 @@ namespace DataGrid
         public void LoadDepartment()
         {
            
-            cboDepartment.ItemsSource = departmentServices.GetDepartments();
+            cboDepartment.ItemsSource = departmentServices.GetDepartments().Where(d => d.DepartmentId<6);
             cboDepartment.DisplayMemberPath = "DepartmentName";
             cboDepartment.SelectedValuePath = "DepartmentId";
         }
@@ -206,6 +206,22 @@ namespace DataGrid
         }
 
         
+        public bool CheckEmptyFields()
+        {
+            bool result = false;
+            string department = cboDepartment.SelectedValue + "";
+            string dob = dpDob.Text;
+            string startDate = dpStartDate.Text;
+            string jobposition = cboJobPosition.SelectedValue+"";
+            if (string.IsNullOrEmpty(department) || string.IsNullOrEmpty(dob) || string.IsNullOrEmpty(startDate) || string.IsNullOrEmpty(jobposition))
+            {
+                MessageBox.Show("Please input all fields", "Empty Fields", MessageBoxButton.OK, MessageBoxImage.Error);
+                result = true;
+            }
+
+            return result;
+        }
+
         public bool CheckDuplicate(Employee employee)
         {
             employee = null;
@@ -244,8 +260,12 @@ namespace DataGrid
                 selected_employee.Photo = uri_after_upload_file;
             }
 
-           
 
+            if (CheckEmptyFields())
+            {
+                MessageBox.Show("Please fill all the Input!", "Fill all input", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
             if (txtFirstName.Text.Length == 0 || txtLastName.Text.Length==0 || txtAddress.Text.Length==0 || txtEmail.Text.Length==0
                 || txtPhoneNumber.Text.Length==0 || txtAvailableDays.Text.Length==0 || txtTotalLeaveDays.Text.Length == 0)
@@ -284,13 +304,27 @@ namespace DataGrid
                 }
 
                 employeeServices.UpdateEmployee(selected_employee);
-                 
+                SaveInHistory(selected_employee);
                 MessageBox.Show("Update successful!", "Update successful", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoadEmployeeInfo();
             }
 
             
 
+        }
+
+        public void SaveInHistory(Employee employee)
+        {
+            //Luu history
+            
+            Employee admin = Application.Current.Properties["admin"] as Employee;
+            ActivityHistory activityHistory = new ActivityHistory();
+            activityHistory.EmployeeId = admin.EmployeeId;
+            activityHistory.Action = "Update";
+            activityHistory.Target = "Update Employee with id = " + employee.EmployeeId;
+            activityHistory.Date = DateOnly.FromDateTime(DateTime.Now);
+            activityHistory.Time = TimeOnly.FromDateTime(DateTime.Now);
+            activityHistoryServices.addActivityHistory(activityHistory);
         }
     }
 }

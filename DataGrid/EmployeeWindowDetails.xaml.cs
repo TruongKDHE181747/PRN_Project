@@ -21,7 +21,7 @@ namespace DataGrid
     /// </summary> 
     
 
-    public partial class EmployeeAddWindow : Window
+    public partial class EmployeeWindowDetails : Window
     {
         EmployeeServices employeeServices = new EmployeeServices();
         DepartmentServices departmentServices = new DepartmentServices();
@@ -29,13 +29,12 @@ namespace DataGrid
         RoleServices roleServices = new RoleServices();
         StatusServices statusServices = new StatusServices();
         ActivityHistoryServices activityHistoryServices = new ActivityHistoryServices();
-
         public Employee selected_employee { get; set; } = null;
-        string uri_after_upload_file = "user1.jpg";
-        public EmployeeAddWindow()
+        string uri_after_upload_file = "";
+        public EmployeeWindowDetails()
         {
             InitializeComponent();
-           
+            Load_Image("phuong.jpg");
         }
 
         private void txtTotalLeaveDays_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -121,15 +120,49 @@ namespace DataGrid
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            txtTotalLeaveDays.Text = "20";
-            txtAvailableDays.Text = "20";
-            Load_Image("user1.jpg");
-            LoadStatus();
-            LoadRole();
-            LoadJobPosition();
-            LoadDepartment();
-            
+            LoadStatus();   
+            LoadRole(); 
+            LoadJobPosition();  
+            LoadDepartment(); 
+            LoadEmployeeInfo();
+        }
 
+        public void LoadEmployeeInfo()
+        {
+            if (selected_employee != null)
+            {
+                txtUsername .Text = selected_employee.UserName; 
+                txtPassword.Password = "***************";
+                txtFirstName.Text = selected_employee.FirstName;    
+                txtLastName.Text = selected_employee.LastName;  
+                txtAddress.Text = selected_employee.Address;    
+                txtEmail.Text = selected_employee.Email;    
+                txtPhoneNumber.Text = selected_employee.PhoneNumber;    
+                txtAvailableDays.Text = selected_employee.AvailableLeaveDays+"";
+                txtTotalLeaveDays.Text = selected_employee.TotalLeaveDays + "";
+
+
+                dpDob.Text = selected_employee.Dob + "";
+                dpStartDate.Text = selected_employee.StartDate + "";
+                
+
+                cboRole.SelectedValue = selected_employee.RoleId;
+                cboDepartment.SelectedValue = selected_employee.DepartmentId;
+                cboJobPosition.SelectedValue = selected_employee.JobPositionId;
+                cboStatus.SelectedValue = selected_employee.StatusId;
+
+                Load_Image(selected_employee.Photo);
+
+                if (selected_employee.Gender==true)
+                {
+                    rbMale.IsChecked = true;
+                }
+                else
+                {
+                    rbFemale.IsChecked = true;
+                }
+                
+            }
         }
 
 
@@ -138,35 +171,31 @@ namespace DataGrid
             cboRole.ItemsSource = roleServices.GetRoles();
             cboRole.DisplayMemberPath = "RoleName";
             cboRole.SelectedValuePath = "RoleId";
-            cboRole.SelectedIndex = 0;  
         }
 
         public void LoadStatus()
         {
-            cboStatus.Items.Clear();
+              
             cboStatus.ItemsSource = statusServices.GetStatuses();
             cboStatus.DisplayMemberPath = "StatusDescription";
             cboStatus.SelectedValuePath = "StatusId";
-            cboStatus.SelectedIndex = 0;
         }
 
         public void LoadJobPosition()
         {
-            cboJobPosition.Items.Clear();
+            
             cboJobPosition.ItemsSource = jobpositionServices.GetJobPositions();
             cboJobPosition.DisplayMemberPath = "JobPositionName";
             cboJobPosition.SelectedValuePath = "JobPositionId";
-            cboJobPosition.SelectedIndex = 0;
         }
 
 
         public void LoadDepartment()
         {
-            cboDepartment.Items.Clear();
+           
             cboDepartment.ItemsSource = departmentServices.GetDepartments();
             cboDepartment.DisplayMemberPath = "DepartmentName";
             cboDepartment.SelectedValuePath = "DepartmentId";
-            cboDepartment.SelectedIndex = 0;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -175,17 +204,18 @@ namespace DataGrid
             this.Close();
         }
 
+        
         public bool CheckDuplicate(Employee employee)
         {
             employee = null;
-            employee = employeeServices.checkDuplicateUsername(txtUsername.Text);
+            employee = employeeServices.checkDuplicateUsername(txtUsername.Text, selected_employee.EmployeeId);
             if (employee != null)
             {
                 MessageBox.Show("This username has already existed!", "Existing username", MessageBoxButton.OK, MessageBoxImage.Information);
                 return true;
             }
             employee = null;
-            employee = employeeServices.getEmployeeByEmail(txtEmail.Text);
+            employee = employeeServices.getEmployeeByEmail(txtEmail.Text, selected_employee.EmployeeId);
             if (employee != null)
             {
                 MessageBox.Show("This email has already exist!", "Existing email", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -193,7 +223,7 @@ namespace DataGrid
             }
 
             employee = null;
-            employee = employeeServices.getEmployeeByPhoneNumber(txtPhoneNumber.Text);
+            employee = employeeServices.getEmployeeByPhoneNumber(txtPhoneNumber.Text, selected_employee.EmployeeId);
             if (employee != null)
             {
                 MessageBox.Show("This phone number has already exist!", "Existing phone number", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -201,68 +231,76 @@ namespace DataGrid
             }
             return false;
         }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            
-            Employee employee = new Employee();   
+            Employee employee =  new Employee();
+            //selected_employee.EmployeeId = selected_employee.EmployeeId;
+            //selected_employee.UserName = selected_employee.UserName;
+            //selected_employee.Password = selected_employee.Password;
+            if(uri_after_upload_file.Length > 0)
+            {
+                selected_employee.Photo = uri_after_upload_file;
+            }
 
-            employee.Photo = uri_after_upload_file;
-             
+           
 
-            if (txtUsername.Text.Length==0|| txtPassword.Password.Length==0|| txtFirstName.Text.Length == 0 || txtLastName.Text.Length==0 || txtAddress.Text.Length==0 || txtEmail.Text.Length==0
-                || txtPhoneNumber.Text.Length==0 || txtAvailableDays.Text.Length==0 || txtTotalLeaveDays.Text.Length == 0 ||dpDob.Text.Length==0 || dpStartDate.Text.Length==0)
+
+            if (txtFirstName.Text.Length == 0 || txtLastName.Text.Length==0 || txtAddress.Text.Length==0 || txtEmail.Text.Length==0
+                || txtPhoneNumber.Text.Length==0 || txtAvailableDays.Text.Length==0 || txtTotalLeaveDays.Text.Length == 0)
             {
                 MessageBox.Show("Please fill all the Input!", "Fill all input", MessageBoxButton.OK, MessageBoxImage.Information);
-            } else
+            } else 
             {
 
                 if (CheckDuplicate(employee) == true)
                 {
                     return;
                 }
-                employee.UserName = txtUsername.Text;   
-                employee.Password = txtPassword.Password;   
-                employee.FirstName = txtFirstName.Text;
-                employee.LastName = txtLastName.Text;
-                employee.Email = txtEmail.Text;
-                employee.PhoneNumber = txtPhoneNumber.Text;
-                employee.Address = txtAddress.Text;
-                employee.Dob = DateOnly.Parse(dpDob.Text);
-                employee.StartDate = DateOnly.Parse(dpStartDate.Text);
-                employee.TotalLeaveDays = int.Parse(txtTotalLeaveDays.Text);
-                employee.AvailableLeaveDays = int.Parse(txtAvailableDays.Text);
-                employee.JobPositionId = int.Parse(cboJobPosition.SelectedValue + "");
-                employee.DepartmentId = int.Parse(cboDepartment.SelectedValue + "");
-                employee.RoleId = int.Parse(cboRole.SelectedValue + "");
-                employee.StatusId = int.Parse(cboStatus.SelectedValue + "");
+                selected_employee.FirstName = txtFirstName.Text;
+                selected_employee.LastName = txtLastName.Text;
+                selected_employee.Email = txtEmail.Text;
+                selected_employee.PhoneNumber = txtPhoneNumber.Text;
+                selected_employee.Address = txtAddress.Text;
+
+                selected_employee.Dob = DateOnly.Parse(dpDob.Text);
+                selected_employee.StartDate = DateOnly.Parse(dpStartDate.Text);
+                selected_employee.TotalLeaveDays = int.Parse(txtTotalLeaveDays.Text);
+                selected_employee.AvailableLeaveDays = int.Parse(txtAvailableDays.Text);
+                selected_employee.JobPositionId = int.Parse(cboJobPosition.SelectedValue + "");
+                selected_employee.DepartmentId = int.Parse(cboDepartment.SelectedValue + "");
+                selected_employee.RoleId = int.Parse(cboRole.SelectedValue + "");
+                selected_employee.StatusId = int.Parse(cboStatus.SelectedValue + "");
+
+                
                 if (rbMale.IsChecked == true)
                 {
-                    employee.Gender = true;
+                    selected_employee.Gender = true;
                 }
                 else
                 {
-                    employee.Gender = false;
+                    selected_employee.Gender = false;
                 }
 
-                employeeServices.AddEmployee(employee);
-
-                SaveInHistory();
-
-                MessageBox.Show("Add successful!", "Add successful", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-                
+                employeeServices.UpdateEmployee(selected_employee);
+                SaveInHistory(selected_employee);
+                MessageBox.Show("Update successful!", "Update successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadEmployeeInfo();
             }
+
+            
+
         }
 
-        public void SaveInHistory()
+        public void SaveInHistory(Employee employee)
         {
             //Luu history
-            int maxid = employeeServices.getEmployees().Select(e => e.EmployeeId).Max();
-            Employee admin = Application.Current.Properties["admin"] as Employee;
+
+            Employee semployee = Application.Current.Properties["employee"] as Employee;
             ActivityHistory activityHistory = new ActivityHistory();
-            activityHistory.EmployeeId = admin.EmployeeId;
-            activityHistory.Action = "Add";
-            activityHistory.Target = "New Employee with id = " + maxid;
+            activityHistory.EmployeeId = semployee.EmployeeId;
+            activityHistory.Action = "Update";
+            activityHistory.Target = "Update Employee with id = " + employee.EmployeeId;
             activityHistory.Date = DateOnly.FromDateTime(DateTime.Now);
             activityHistory.Time = TimeOnly.FromDateTime(DateTime.Now);
             activityHistoryServices.addActivityHistory(activityHistory);
