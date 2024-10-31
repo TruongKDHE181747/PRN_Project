@@ -17,5 +17,8 @@ namespace Services
         {
             new NotificationRepository().AddNotification(notification);
         }
+
+        public List<Notification> GetNotificationForEmployee(int? departmentId) => new NotificationRepository().GetNotificationForEmployee(departmentId);
+        public List<Notification> GetTop3NotificationEmployee(int? departmentId) => new NotificationRepository().GetTop3NotificationForEmployee(departmentId);
     }
 }

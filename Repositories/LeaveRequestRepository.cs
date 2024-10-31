@@ -16,10 +16,21 @@ namespace Repositories
         {
             using (var context = new Prn212Context())
             {
-                return context.LeaveRequests.Include(e=>e.Employee).Include(d=>d.Employee.Department).Include(s=>s.RequestStatus).Include(t=>t.LeaveTypeId).ToList();
+                return context.LeaveRequests.Include(e=>e.Employee).Include(d=>d.Employee.Department).Include(s=>s.RequestStatus).Include(t=>t.LeaveType).OrderBy(sr=>sr.RequestStatusId).ToList();
             }
         }
 
+        public void Update(LeaveRequest leaveRequest,int statusid)
+        {
+            using (var context = new Prn212Context())
+            {
+                leaveRequest=context.LeaveRequests.Find(leaveRequest.RequestId);
+                context.ChangeTracker.Clear();
+                leaveRequest.RequestStatusId= statusid;
+                context.LeaveRequests.Update(leaveRequest);
+                context.SaveChanges();
+            }
+        }
 
     }
 }

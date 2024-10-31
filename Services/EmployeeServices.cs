@@ -85,7 +85,10 @@ namespace Services
                 .Include(e => e.Department)
                 .ToList();
         }
-
+        public Employee? GetEmployeeById(int? id)
+        {
+            return context.Employees.FirstOrDefault(x => x.EmployeeId == id);
+        }
 
     }
 }
