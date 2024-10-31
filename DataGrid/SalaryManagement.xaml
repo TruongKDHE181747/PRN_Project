@@ -12,7 +12,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
 
-    <Border CornerRadius="30" Background="#EFF2F7" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+    <Border CornerRadius="30" Background="#EFF2F7" >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -88,7 +88,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="btnLeaveDay" Style="{StaticResource menuButton}" Click="btnLeaveDay_Click">
+                            <Button x:Name="btnLeaveDay" Style="{StaticResource menuButton}" >
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Calendar" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Leave Day"/>
@@ -119,7 +119,7 @@
                 <TextBlock x:Name="txtTitle" Text="Salary Management" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="0,0,0,0" Foreground="#121518" HorizontalAlignment="Left"/>
 
                 <!-- Additional Buttons -->
-                <Button x:Name="btnRefresh" Style="{StaticResource addButton}" Click="btnRefresh_Click" Margin="10,0,0,10" HorizontalAlignment="Right" Width="88">
+                <Button x:Name="btnRefresh" Style="{StaticResource addButton}"  Margin="10,0,0,10" HorizontalAlignment="Right" Width="88">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Refresh" VerticalAlignment="Center" Margin="0,1,8,0" Width="11" Height="11"/>
                         <TextBlock Text="Refresh"/>
