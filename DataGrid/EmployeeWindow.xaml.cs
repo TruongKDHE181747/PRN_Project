@@ -169,6 +169,12 @@ namespace DataGrid
             LoadData();
         }
 
+        private void btnSalary_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeSalary employeeSalary = new EmployeeSalary();
+            employeeSalary.ShowDialog();
+            LoadData();
+        }
         
     }
 

@@ -74,7 +74,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}" >
+                            <Button x:Name="btnSalary" Style="{StaticResource menuButton}" Click="btnSalary_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="CashMultiple" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Salary"/>

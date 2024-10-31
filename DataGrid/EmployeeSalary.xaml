@@ -1,4 +1,4 @@
-﻿<Window x:Class="DataGrid.SalaryManagement"
+﻿<Window x:Class="DataGrid.EmployeeSalary"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -88,7 +88,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="btnLeaveDay" Style="{StaticResource menuButton}" Click="btnLeaveDay_Click">
+                            <Button x:Name="btnLeaveDay" Style="{StaticResource menuButton}" >
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Calendar" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Leave Day"/>
