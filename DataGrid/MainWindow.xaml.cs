@@ -96,7 +96,7 @@ namespace DataGrid
         public void LoadDepartment()
         {
 
-            cboDepartment.ItemsSource = departmentServices.GetDepartments();
+            cboDepartment.ItemsSource = departmentServices.GetDepartments().Where(d => d.DepartmentId<6);
             cboDepartment.DisplayMemberPath = "DepartmentName";
             cboDepartment.SelectedValuePath = "DepartmentId";
         }
@@ -128,8 +128,9 @@ namespace DataGrid
 
         public void LoadData()
         {
-            //txtName.Text = "Admin: "+selected_employee.FirstName+" "+selected_employee.LastName;
-            //Load_Image(selected_employee.Photo);
+            Application.Current.Properties["admin"] = selected_employee;
+            txtName.Text = "Admin: "+selected_employee.FirstName+" "+selected_employee.LastName;
+            Load_Image(selected_employee.Photo);
             txtCountEmployee.Text = employeeServices.getTotalEmployee() + " Employees";
             LoadAllEmployee();
             LoadDepartment();

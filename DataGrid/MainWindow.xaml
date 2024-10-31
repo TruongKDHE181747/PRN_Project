@@ -182,32 +182,38 @@
                 </StackPanel>
 
                 <!--Counter Title-->
-                <TextBlock x:Name="txtCountEmployee" Text="68 Employees" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-                <ComboBox Name="cboGender"
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <TextBlock x:Name="txtCountEmployee" Text="68 Employees" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <StackPanel Margin="40 0 0 0" Orientation="Horizontal">
+                        <ComboBox Width="100" Margin="20 0" Name="cboGender" VerticalAlignment="Center"
   materialDesign:HintAssist.Hint="Gender"
-  Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="483,0,221,0" Grid.Row="4" SelectionChanged="cboGender_SelectionChanged"
+  Style="{StaticResource MaterialDesignOutlinedComboBox}"  SelectionChanged="cboGender_SelectionChanged"
  >
-                   
-                </ComboBox>
-                <ComboBox Name="cboJobPosition"
+                        </ComboBox>
+                        <ComboBox MinWidth="120" Margin="20 0" Name="cboJobPosition" 
  materialDesign:HintAssist.Hint="Job Position"
- Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="322,10,352,0" Grid.Row="4" VerticalAlignment="Top" SelectionChanged="cboJobPosition_SelectionChanged"
+ Style="{StaticResource MaterialDesignOutlinedComboBox}"  VerticalAlignment="Center" SelectionChanged="cboJobPosition_SelectionChanged"
 >
-                </ComboBox>
-                <ComboBox Name="cboDepartment"
+                        </ComboBox>
+                        <ComboBox MinWidth="120" Name="cboDepartment" Margin="20 0"
  materialDesign:HintAssist.Hint="Department"
- Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="183,0,513,0" Grid.Row="4" SelectionChanged="cboDepartment_SelectionChanged"
+ Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="cboDepartment_SelectionChanged"
 >
-                </ComboBox>
+                        </ComboBox>
 
-                <!--Filter Textbox-->
-                <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4">
+                        <!--Filter Textbox-->
+                        <Grid Margin="20 0 0 0" Width="200" HorizontalAlignment="Right">
+
+
+                            <TextBox FontSize="14" Tag="Employee name" Name="txtEmployeeName" Style="{StaticResource PlaceholderforTextBox}" TextChanged="txtEmployeeName_TextChanged"/>
+                            <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
+                        </Grid>
+                    </StackPanel>
                     
+                </StackPanel>
+                
 
-                    <TextBox FontSize="14" Tag="Employee name" Name="txtEmployeeName" Style="{StaticResource PlaceholderforTextBox}" TextChanged="txtEmployeeName_TextChanged"/>
-                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
-                </Grid>
+                
 
                 <!--Members Data Grid-->
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="employeeDataGrid" Style="{DynamicResource DataGridStyle1}" SelectionChanged="employeeDataGrid_SelectionChanged">

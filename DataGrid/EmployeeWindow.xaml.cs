@@ -104,9 +104,10 @@ namespace DataGrid
 
         public void LoadData()
         {
+            Application.Current.Properties["employee"] = selected_employee;
             txtName.Text = "Employee: " + selected_employee.FirstName + " " + selected_employee.LastName;
             Load_Image(selected_employee.Photo);
-            txtCountEmployee.Text = employeeServices.getTotalEmployee() + " Employees";
+            txtCountEmployee.Text = "1 Employee";
             LoadAllEmployee();
 
         }
@@ -121,10 +122,11 @@ namespace DataGrid
         {
             Employee employee = employeeDataGrid.SelectedItem as Employee;
 
-            EmployeeDetails employeeDetail = new EmployeeDetails();
+            EmployeeWindowDetails employeeDetail = new EmployeeWindowDetails();
             employeeDetail.selected_employee = employee;
             employeeDetail.ShowDialog();
-            LoadAllEmployee();
+            
+            LoadData();
 
         }
 
