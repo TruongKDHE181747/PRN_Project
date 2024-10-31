@@ -173,7 +173,7 @@ namespace DataGrid
         private void btnSalary_Click(object sender, RoutedEventArgs e)
         {
             EmployeeSalary employeeSalary = new EmployeeSalary();
-            employeeSalary.ShowDialog();
+            employeeSalary.Show();
             LoadData();
         }
 
