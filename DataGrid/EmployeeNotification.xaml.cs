@@ -72,7 +72,9 @@ namespace DataGrid
 
         private void btnEmployeeWindow_Click(object sender, RoutedEventArgs e)
         {
-
+            EmployeeWindow employeeWindow = new EmployeeWindow();
+            employeeWindow.Show();
+            this.Close();
         }
     }
 }

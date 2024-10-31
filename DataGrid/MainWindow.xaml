@@ -53,12 +53,7 @@
 
                         <!--Menu Buttons-->
                         <StackPanel DockPanel.Dock="Top"  >
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Dashboard"/>
-                                </StackPanel>
-                            </Button>
+                            
 
                             <Button Style="{StaticResource menuButton}" Click="Button_Click_1">
                                 <StackPanel Orientation="Horizontal">
@@ -91,6 +86,20 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Calendar" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Leave Day"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" Click="Button_Click_2" >
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Tab" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Department"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" Name="btnHistory" Click="btnHistory_Click" >
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Tab" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="History Activity"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>

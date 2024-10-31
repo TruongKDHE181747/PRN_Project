@@ -28,5 +28,12 @@ namespace DataGrid
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();   
+            mainWindow.Show();
+            this.Close();   
+        }
     }
 }

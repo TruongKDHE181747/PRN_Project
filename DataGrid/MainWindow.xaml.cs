@@ -128,6 +128,7 @@ namespace DataGrid
 
         public void LoadData()
         {
+            selected_employee = Application.Current.Properties["saemployee"] as Employee;
             Application.Current.Properties["admin"] = selected_employee;
             txtName.Text = "Admin: "+selected_employee.FirstName+" "+selected_employee.LastName;
             Load_Image(selected_employee.Photo);
@@ -538,6 +539,20 @@ namespace DataGrid
         {
             EmployeeAttendanceManagement employeeAttendanceManagement = new EmployeeAttendanceManagement();
             employeeAttendanceManagement.Show();
+            this.Close();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            DepartmentManagement department = new DepartmentManagement();
+            department.Show();
+            this.Close();
+        }
+
+        private void btnHistory_Click(object sender, RoutedEventArgs e)
+        {
+            ActivityHistoryWindow activityHistoryWindow = new ActivityHistoryWindow();  
+            activityHistoryWindow.Show();
             this.Close();
         }
     }

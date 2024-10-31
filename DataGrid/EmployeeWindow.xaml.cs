@@ -64,9 +64,11 @@ namespace DataGrid
         //Close Button Click Event
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            
             LoginForm lf = new LoginForm();
-            lf.ShowDialog();
+            this.Close();
+            lf.Show();
+            
         }
 
 
@@ -105,6 +107,7 @@ namespace DataGrid
 
         public void LoadData()
         {
+            selected_employee = Application.Current.Properties["saemployee"] as Employee;
             Application.Current.Properties["employee"] = selected_employee;
             txtName.Text = "Employee: " + selected_employee.FirstName + " " + selected_employee.LastName;
             Load_Image(selected_employee.Photo);
@@ -207,6 +210,8 @@ namespace DataGrid
                   var notification = notificationService.GetTop3NotificationEmployee(loginemployee.DepartmentId);
                   notificationDatagrid.ItemsSource = notification;
         }
+
+       
     }
 
  

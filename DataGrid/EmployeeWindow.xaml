@@ -53,19 +53,7 @@
 
                         <!--Menu Buttons-->
                         <StackPanel DockPanel.Dock="Top" >
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Dashboard"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="CalendarClock" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Events"/>
-                                </StackPanel>
-                            </Button>
+                            
 
                             <Button Style="{StaticResource menuButton}" Background="#7B5CD6" Foreground="White">
                                 <StackPanel Orientation="Horizontal">
@@ -81,12 +69,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="btnMessages" Style="{StaticResource menuButton}" Click="btnMessages_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="ForumOutline" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Messages"/>
-                                </StackPanel>
-                            </Button>
+                           
                             <Button x:Name="btnAttendance" Style="{StaticResource menuButton}" Click="btnAttendance_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="ForumOutline" Style="{StaticResource menuButtonIcon}"/>

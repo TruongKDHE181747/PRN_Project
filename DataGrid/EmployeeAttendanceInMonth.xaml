@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataGrid"
         mc:Ignorable="d"
-        Title="EmployeeAttendanceInMonth" Height="417" Width="900" Background="#F4F4F9">
+        Title="EmployeeAttendanceInMonth" WindowStartupLocation="CenterScreen" Height="417" Width="900" Background="#F4F4F9">
     <Grid Margin="20">
 
         <!-- Title -->

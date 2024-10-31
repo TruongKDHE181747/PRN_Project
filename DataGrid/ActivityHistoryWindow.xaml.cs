@@ -131,6 +131,13 @@ namespace DataGrid
             txtCountActivites.Text = activityHistoryServices.getAllHistory().Count + " Activities";
             LoadData();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow(); 
+            main.Show();
+            this.Close();
+        }
     }
 }
 

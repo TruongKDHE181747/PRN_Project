@@ -50,6 +50,12 @@
                                     <TextBlock Text="Home"/>
                                 </StackPanel>
                             </Button>
+                            <Button Background="#7B5CD6" Foreground="White" x:Name="btnNotification" Style="{StaticResource menuButton}" Click="btnEmployeeWindow_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Notification"/>
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
 
                         <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="Button_Click">

@@ -44,15 +44,14 @@ namespace DataGrid
               //= session.setAtribute("loginEmployee", employee);
 
                 this.Hide();
+                Application.Current.Properties["saemployee"] = employee;
                 if (employee.RoleId == 1)
                 {
                     MainWindow mw = new MainWindow();
-                    mw.selected_employee = employee;
                     mw.Show();
                 } else
                 {
                     EmployeeWindow employeeWindow = new EmployeeWindow();
-                    employeeWindow.selected_employee = employee;
                     employeeWindow.Show();
                 }
                 
