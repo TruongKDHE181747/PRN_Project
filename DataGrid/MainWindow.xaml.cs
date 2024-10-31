@@ -531,7 +531,7 @@ namespace DataGrid
         {
             SalaryManagement salaryManagement = new SalaryManagement();
             salaryManagement.Show();
-            this.Close();
+            //this.Close();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
