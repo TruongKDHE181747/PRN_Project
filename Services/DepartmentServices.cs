@@ -1,4 +1,5 @@
-﻿using Repositories.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Repositories.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,33 @@ namespace Services
             return context.Departments.FirstOrDefault(x => x.DepartmentId == id);
         }
 
-
+        public void AddDepartment(Department department)
+        {
+            context.Departments.Add(department);
+            context.SaveChanges();
+        }
+        public void UpdateDepartment(Department department)
+        {
+            context.Departments.Update(department);
+            context.SaveChanges();
+        }
+        public void DeleteDepartment(int departmentId)
+        {
+            var department = context.Departments.Find(departmentId);
+            if (department != null)
+            {
+                context.Departments.Remove(department);
+                context.SaveChanges();
+            }
+        }
+        public void AssignEmployeeToDepartment(int employeeId, int departmentId)
+        {
+            var employee = context.Employees.Find(employeeId);
+            if (employee != null)
+            {
+                employee.DepartmentId = departmentId;
+                context.SaveChanges();
+            }
+        }
     }
 }

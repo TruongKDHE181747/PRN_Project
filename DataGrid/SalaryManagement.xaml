@@ -68,7 +68,7 @@
                                 </StackPanel>
                             </Button>
 
-                           
+
                         </StackPanel>
 
                         <!-- Logout Button -->
@@ -91,15 +91,21 @@
                 </Grid.RowDefinitions>
 
                 <!-- Page Title -->
-                <TextBlock x:Name="txtTitle" Text="Salary Management" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="0,0,0,0" Foreground="#121518" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="txtTitle" Text="Salary Management" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="0,-1,0,32" Foreground="#121518" HorizontalAlignment="Left" Grid.RowSpan="2"/>
 
                 <!-- Additional Buttons -->
-                <Button x:Name="btnRefresh" Style="{StaticResource addButton}"  Margin="10,0,0,10" HorizontalAlignment="Right" Width="88">
-                    <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Refresh" VerticalAlignment="Center" Margin="0,1,8,0" Width="11" Height="11"/>
-                        <TextBlock Text="Refresh"/>
-                    </StackPanel>
-                </Button>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,17,0,7" Grid.RowSpan="2">
+                    <ComboBox x:Name="cbMonth" Width="80" SelectionChanged="cbMonth_SelectionChanged"/>
+                    <ComboBox x:Name="cbYear" Width="80" Margin="10,0,0,0" SelectionChanged="cbYear_SelectionChanged"/>
+                    <Button x:Name="btnRefresh" Style="{StaticResource addButton}" Margin="10,0,0,0" Width="88" Click="btnRefresh_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Refresh" VerticalAlignment="Center" Margin="0,1,8,0" Width="11" Height="11"/>
+                            <TextBlock Text="Refresh"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <TextBlock x:Name="txtTotalIncome" Text="Total Income: " Grid.Row="1" FontSize="16" FontWeight="SemiBold" Margin="10,15,0,540" Foreground="#121518" HorizontalAlignment="Left" Grid.RowSpan="2"/>
 
                 <!-- Data Grid for Salary Information -->
                 <DataGrid x:Name="SalaryDataGrid" Grid.Row="2" Margin="0,10,0,6" AutoGenerateColumns="False" SelectionChanged="SalaryDataGrid_SelectionChanged">
