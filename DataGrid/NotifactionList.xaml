@@ -165,7 +165,7 @@
 
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="btnAddNotification_Copy" Style="{StaticResource addButton}" Click="btnAddNotification_Click" Margin="0,21,438,7" Grid.Row="1" Width="88">
+                <Button x:Name="btnRefresh" Style="{StaticResource addButton}" Margin="0,21,438,7" Grid.Row="1" Width="88" Click="btnRefresh_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Refresh" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
                         <TextBlock Text="Refresh"/>

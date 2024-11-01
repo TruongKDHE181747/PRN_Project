@@ -23,6 +23,7 @@ namespace DataGrid
     {
         EmployeeServices employeeServices = new EmployeeServices();
         LeaveDayService leaveDayService = new LeaveDayService();
+        ActivityHistoryService activityHistoryService = new ActivityHistoryService();
         public LeaveDayManagement()
         {
             InitializeComponent();
@@ -89,6 +90,8 @@ namespace DataGrid
             try
             {
                 LeaveRequest leaveRequest = LeaveDayRequestDataGrid.SelectedItem as LeaveRequest;
+                if(leaveRequest==null) throw new Exception("Please select leave request");
+
                 if (leaveRequest.RequestStatusId != 1)
                 {
                     throw new Exception("This request is processed");
@@ -104,6 +107,14 @@ namespace DataGrid
                     int totalLeaveDays = (int)(endDate - startDate).TotalDays;
                     employee.AvailableLeaveDays -= totalLeaveDays;
                     employeeServices.UpdateEmployee(employee);
+                    ActivityHistory activityHistory = new ActivityHistory();
+                    Employee loginEmployee = Application.Current.Properties["loginEmployee"] as Employee;
+                    activityHistory.EmployeeId = loginEmployee.EmployeeId;
+                    activityHistory.Action = "Processed";
+                    activityHistory.Target = "Leave Request";
+                    activityHistory.Date = DateOnly.FromDateTime(DateTime.Now);
+                    activityHistory.Time = TimeOnly.FromDateTime(DateTime.Now);
+                    activityHistoryService.AddActivityHistory(activityHistory);
                     LeaveDayRequestDataGrid_Loaded(sender, e);
                     LeaveDayListDataGrid_Loaded(sender, e);
                 }
@@ -123,6 +134,8 @@ namespace DataGrid
             try
             {
                 LeaveRequest leaveRequest = LeaveDayRequestDataGrid.SelectedItem as LeaveRequest;
+                if (leaveRequest == null) throw new Exception("Please select leave request");
+
                 if (leaveRequest.RequestStatusId != 1)
                 {
                     throw new Exception("This request is processed");
@@ -132,7 +145,15 @@ namespace DataGrid
                     //leaveRequest.RequestStatusId = 2;
                     leaveDayService.Update(leaveRequest, 3);
                     MessageBox.Show("Rejected");
-                      LeaveDayRequestDataGrid_Loaded(sender, e);
+                    ActivityHistory activityHistory = new ActivityHistory();
+                    Employee loginEmployee = Application.Current.Properties["loginEmployee"] as Employee;
+                    activityHistory.EmployeeId = loginEmployee.EmployeeId;
+                    activityHistory.Action = "Processed";
+                    activityHistory.Target = "Leave Request";
+                    activityHistory.Date = DateOnly.FromDateTime(DateTime.Now);
+                    activityHistory.Time = TimeOnly.FromDateTime(DateTime.Now);
+                    activityHistoryService.AddActivityHistory(activityHistory);
+                    LeaveDayRequestDataGrid_Loaded(sender, e);
                 }
 
 

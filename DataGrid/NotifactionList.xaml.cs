@@ -99,9 +99,9 @@ namespace DataGrid
         {
             try
             {
-                Notification? notification = NotificationDataGrid.SelectedItems as Notification;
+                Notification? notification = NotificationDataGrid.SelectedItem as Notification;
                 notificationService.DeleteNotification(notification.NotificationId);
-                MessageBox.Show(notification.NotificationId.ToString());
+                MessageBox.Show("Delete successfully");
                 NotificationDataGrid_Loaded(sender, e);
             }
             catch(Exception ex) 
@@ -122,6 +122,11 @@ namespace DataGrid
             MainWindow main = new MainWindow();
             main.Show();
             this.Close();
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            NotificationDataGrid_Loaded(sender, e);
         }
     }
 }
