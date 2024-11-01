@@ -163,7 +163,7 @@ namespace DataGrid
         public void LoadDepartment()
         {
             cboDepartment.Items.Clear();
-            cboDepartment.ItemsSource = departmentServices.GetDepartments();
+            cboDepartment.ItemsSource = departmentServices.GetDepartments().Where(d => d.DepartmentId != 6);
             cboDepartment.DisplayMemberPath = "DepartmentName";
             cboDepartment.SelectedValuePath = "DepartmentId";
             cboDepartment.SelectedIndex = 0;
