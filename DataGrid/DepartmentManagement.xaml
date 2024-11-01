@@ -116,6 +116,13 @@
                   AutoGenerateColumns="False" Margin="-10,117,10,160" Grid.Row="2">
 
                     <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="C" CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
+                            <DataGridCheckBoxColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox Style="{StaticResource CheckBoxStyle1}"/>
+                                </DataTemplate>
+                            </DataGridCheckBoxColumn.HeaderTemplate>
+                        </DataGridCheckBoxColumn>
                         <DataGridTextColumn Header="#" IsReadOnly="True" Width="auto" Binding="{Binding EmployeeId}"/>
                         <DataGridTextColumn Header="Firstname" Width="*" Binding="{Binding FirstName}"/>
                         <DataGridTextColumn Header="Lastname" Width="*" Binding="{Binding LastName}"/>
