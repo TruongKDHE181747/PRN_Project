@@ -78,7 +78,6 @@ namespace DataGrid
         }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hello");
             LoadAllEmployeeSalaries2();
         }
         private void btnLeaveDay_Click(object sender, RoutedEventArgs e)

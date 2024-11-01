@@ -67,36 +67,45 @@ namespace DataGrid
             {
                 Notification notification = new Notification();
                 notification.Content = txtNotificationContent.Text;
-                if (cboDepartment.SelectedValue.ToString() != "0")
+
+                if (cboDepartment.SelectedValue == null)
                 {
-                    notification.DepartmentId = int.Parse(cboDepartment.SelectedValue.ToString());
+                    throw new Exception("Please select department");
                 }
-                Employee? loginEmployee = Application.Current.Properties["loginEmployee"] as Employee;
-                //=  Employee loginEmployee = (Employee)session.setAtribute("loginEmployee");
+             
 
-                notification.CreateBy = loginEmployee.EmployeeId;
-                notification.SendAt = DateOnly.FromDateTime(DateTime.Now);
-                notification.Time= TimeOnly.FromDateTime(DateTime.Now);
+                    if (cboDepartment.SelectedValue.ToString() != "0")
+                    {
+                        notification.DepartmentId = int.Parse(cboDepartment.SelectedValue.ToString());
+                    }
+                    Employee? loginEmployee = Application.Current.Properties["loginEmployee"] as Employee;
+                    //=  Employee loginEmployee = (Employee)session.setAtribute("loginEmployee");
 
-                notificationService.AddNotification(notification);
-                
-                ActivityHistory activityHistory = new ActivityHistory();
+                    notification.CreateBy = loginEmployee.EmployeeId;
+                    notification.SendAt = DateOnly.FromDateTime(DateTime.Now);
+                    notification.Time = TimeOnly.FromDateTime(DateTime.Now);
 
-                activityHistory.EmployeeId = loginEmployee.EmployeeId;
-                activityHistory.Action = "Send notification";
-                activityHistory.Target= departmentService.GetDepartmentById(notification.DepartmentId).DepartmentName;
-                activityHistory.Date = DateOnly.FromDateTime(DateTime.Now);
-                activityHistory.Time = TimeOnly.FromDateTime(DateTime.Now);
-                 activityHistoryService.AddActivityHistory(activityHistory);
+                    notificationService.AddNotification(notification);
+
+                    ActivityHistory activityHistory = new ActivityHistory();
+
+                    activityHistory.EmployeeId = loginEmployee.EmployeeId;
+                    activityHistory.Action = "Send notification";
+                    activityHistory.Target = departmentService.GetDepartmentById(notification.DepartmentId).DepartmentName;
+                    activityHistory.Date = DateOnly.FromDateTime(DateTime.Now);
+                    activityHistory.Time = TimeOnly.FromDateTime(DateTime.Now);
+                    activityHistoryService.AddActivityHistory(activityHistory);
 
 
 
-                MessageBox.Show("Send notification successfully");
-            }
+                    MessageBox.Show("Send notification successfully");
+                }
+            
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        
 
         }
 

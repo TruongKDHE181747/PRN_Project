@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 using MaterialDesignThemes.Wpf;
 using Repositories.Models;
 using Services;
@@ -34,7 +33,7 @@ namespace DataGrid
         string uri_after_upload_file = "";
         public SentLeaveRequest()
         {
-            selected_employee = employeeServices.getEmployees().Where(e => e.EmployeeId == 2).FirstOrDefault();
+            selected_employee = Application.Current.Properties["saemployee"] as Employee;
             InitializeComponent();
             Load_Image("phuong.jpg");
         }

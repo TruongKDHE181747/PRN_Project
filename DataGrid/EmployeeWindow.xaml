@@ -76,7 +76,12 @@
                                     <TextBlock Text="Attendance"/>
                                 </StackPanel>
                             </Button>
-
+                            <Button x:Name="btnSendLeaveRequest" Style="{StaticResource menuButton}" Click="btnSendLeaveRequest_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="ForumOutline" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Leave Request"/>
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
 
                         <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="Button_Click">
