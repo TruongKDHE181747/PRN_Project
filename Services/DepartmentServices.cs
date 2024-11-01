@@ -10,7 +10,8 @@ namespace Services
 {
     public class DepartmentServices
     {
-        Prn212Context context = new Prn212Context();    
+        Prn212Context context = new Prn212Context();
+
         public List<Department> GetDepartments()
         {
             return context.Departments.ToList();
@@ -26,20 +27,7 @@ namespace Services
             context.Departments.Add(department);
             context.SaveChanges();
         }
-        public void UpdateDepartment(Department department)
-        {
-            context.Departments.Update(department);
-            context.SaveChanges();
-        }
-        public void DeleteDepartment(int departmentId)
-        {
-            var department = context.Departments.Find(departmentId);
-            if (department != null)
-            {
-                context.Departments.Remove(department);
-                context.SaveChanges();
-            }
-        }
+
         public void AssignEmployeeToDepartment(int employeeId, int departmentId)
         {
             var employee = context.Employees.Find(employeeId);

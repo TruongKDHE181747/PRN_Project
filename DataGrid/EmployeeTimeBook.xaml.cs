@@ -24,14 +24,14 @@ namespace DataGrid
     {
         EmployeeServices es= new EmployeeServices();
         AttendanceServices attendanceServices = new AttendanceServices();
-        EmployeeServices EmployeeServices = new EmployeeServices();
         public EmployeeTimeBook()
         {
             InitializeComponent();
             LoadAttendance();
-            //AddAbsentAttendance();
+            AddAbsentAttendance();
         }
         private TimeOnly InTime = TimeOnly.Parse("06:00");
+        private TimeOnly EndTime = TimeOnly.Parse("23:00");
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
             Attendance attendance = new Attendance();
@@ -112,8 +112,37 @@ namespace DataGrid
             dataGridAttendanceHistory.ItemsSource = attendanceServices.GetAttendances().Where(a => a.EmployeeId == loginEmployee.EmployeeId && a.AttendanceDate == today);
         }
 
-       
-        
+        private void AddAbsentAttendance()
+        {
+            DateOnly yesterday = DateOnly.FromDateTime(DateTime.Now.AddDays(-1));
+            List<Employee> AllEmployees = es.getEmployees().Where(e=>e.RoleId==2).ToList();
+            if (yesterday.DayOfWeek == DayOfWeek.Sunday)
+            {
+                return; 
+            }
+            foreach (var employee in AllEmployees)
+            {
+                Attendance checkedAttendance = attendanceServices.CheckAttendance(yesterday, employee.EmployeeId);
+
+                if (checkedAttendance == null)
+                {
+                    Attendance attendance = new Attendance
+                    {
+                        EmployeeId = employee.EmployeeId,
+                        AttendanceDate = yesterday,
+                        TimeIn = null,
+                        TimeOut = null,
+                        HoursWorked = 0,
+                        OvertimeHour = 0,
+                        AttendanceStatusId = 2
+                    };
+
+                    attendanceServices.AddAttendance(attendance);
+                }
+            }
+        }
+
+
 
         private void dataGridAttendanceHistory_Loaded(object sender, RoutedEventArgs e)
         {
