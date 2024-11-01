@@ -22,7 +22,7 @@ namespace Services
         }
         public List<Salary> GetEmployeeSalaries()
         {
-            return context.Salaries.Include(s => s.EmployeeId).ToList();
+            return context.Salaries.Include(s => s.Employee).ToList();
         }
         public int CalculateTotalIncome(int basicSalary, int? allowance, int? bonus, int? penalty)
         {

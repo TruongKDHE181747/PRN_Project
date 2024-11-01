@@ -33,6 +33,7 @@ namespace DataGrid
 
         private void LoadEmployeeSalaries()
         {
+            SelectedEmployee = Application.Current.Properties["saemployee"] as Employee;
             SalaryDataGrid.ItemsSource = SelectedEmployee != null
                 ? _salaryService.GetEmployeeSalaries().Where(s => s.EmployeeId == SelectedEmployee.EmployeeId).ToList()
                 : _salaryService.GetEmployeeSalaries().ToList();
