@@ -55,7 +55,7 @@ namespace DataGrid
         private void employeeDataGrid_Loaded(object sender, RoutedEventArgs e)
         {
             
-                employeeDataGrid.ItemsSource = attendanceServices.employeeAttendanceSummaries();
+                employeeDataGrid.ItemsSource = attendanceServices.employeeAttendanceSummaries().Where(a=>a.Month==DateTime.Now.Month && a.Year==DateTime.Now.Year);
             
         }
 
@@ -94,7 +94,7 @@ namespace DataGrid
             String name= txtEmployeeName.Text;
             if (name.Length > 0)
             {
-                attendanceSummaries= attendanceSummaries.Where(e => e.UserName.ToLower().Contains(name.ToLower())).ToList();
+                attendanceSummaries= attendanceSummaries.Where(e => (e.FirstName + " " + e.LastName).ToLower().Contains(name.ToLower()) && e.Month == DateTime.Now.Month && e.Year == DateTime.Now.Year).ToList();
             }
 
             int month = -1;
@@ -110,6 +110,12 @@ namespace DataGrid
             if (month > -1 && year > -1)
             {
                 attendanceSummaries = attendanceSummaries.Where(e => e.Month == month && e.Year == year).ToList();
+            }else if (month > -1 )
+            {
+                attendanceSummaries = attendanceSummaries.Where(e => e.Month == month).ToList();
+            }else if (year > -1)
+            {
+                attendanceSummaries=attendanceSummaries.Where(e => e.Year == year).ToList();
             }
             employeeDataGrid.ItemsSource = attendanceSummaries;
         }

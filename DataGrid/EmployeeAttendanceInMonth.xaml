@@ -9,7 +9,7 @@
     <Grid Margin="20">
 
         <!-- Title -->
-        <TextBlock Text="Attendance Records" 
+        <TextBlock Text="Employee Attendance In Month"
                    FontSize="24" 
                    FontWeight="Bold" 
                    Foreground="#3B3B98" 

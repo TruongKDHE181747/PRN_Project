@@ -10,13 +10,15 @@ namespace Repositories.Models
     {
         
             public int EmployeeId { get; set; }
-            public string UserName { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
             public int PresentDays { get; set; }
             public int AbsentDays { get; set; }
             public int LateDays { get; set; }
             public int OvertimeDays { get; set; }
             public int Year { get; set; }
             public int Month { get; set; }
-        }
+            
+    }
     }
 

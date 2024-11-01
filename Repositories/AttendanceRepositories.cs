@@ -21,11 +21,12 @@ namespace Repositories
             var attendance = context.Attendances;
 
             var result = (from a in attendance
-                          group a by new { a.EmployeeId, a.Employee.UserName,a.AttendanceDate.Value.Year, a.AttendanceDate.Value.Month } into g
+                          group a by new { a.EmployeeId, a.Employee.FirstName,a.Employee.LastName, a.AttendanceDate.Value.Year, a.AttendanceDate.Value.Month } into g
                           select new AttendanceSummary
                           {
                               EmployeeId = (int)g.Key.EmployeeId,
-                              UserName = g.Key.UserName,
+                              FirstName = g.Key.FirstName,
+                              LastName = g.Key.LastName,
                               Month = g.Key.Month,
                               Year = g.Key.Year,
                               AbsentDays = g.Count(a => a.AttendanceStatusId == 2),

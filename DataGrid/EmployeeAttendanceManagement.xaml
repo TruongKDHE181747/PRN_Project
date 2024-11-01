@@ -162,17 +162,26 @@
                         <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding EmployeeId}"/>
 
 
-                        <DataGridTemplateColumn Header="Username" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn Header="First name" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
 
-                                        <TextBlock Text="{Binding UserName}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding FirstName}" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Last name" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
 
+                                        <TextBlock Text="{Binding LastName}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                         <DataGridTextColumn Header="Present Days" Binding="{Binding PresentDays}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Absent Days" Binding="{Binding AbsentDays}" IsReadOnly="True" Width="*"/>
