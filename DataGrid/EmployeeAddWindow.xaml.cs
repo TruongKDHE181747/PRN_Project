@@ -235,6 +235,7 @@ namespace DataGrid
                 employee.DepartmentId = int.Parse(cboDepartment.SelectedValue + "");
                 employee.RoleId = int.Parse(cboRole.SelectedValue + "");
                 employee.StatusId = int.Parse(cboStatus.SelectedValue + "");
+                employee.IsActive = true;
                 if (rbMale.IsChecked == true)
                 {
                     employee.Gender = true;

@@ -271,7 +271,7 @@ namespace DataGrid
                 selected_employee.DepartmentId = int.Parse(cboDepartment.SelectedValue + "");
                 selected_employee.RoleId = int.Parse(cboRole.SelectedValue + "");
                 selected_employee.StatusId = int.Parse(cboStatus.SelectedValue + "");
-
+                selected_employee.IsActive = true;
                 
                 if (rbMale.IsChecked == true)
                 {
