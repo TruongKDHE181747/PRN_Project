@@ -91,16 +91,11 @@
 
                 <!-- Page Title -->
                 <TextBlock x:Name="txtTitle" Text="Department Management" Grid.Row="0" FontSize="32" FontWeight="SemiBold" Margin="-10,5,0,593" Foreground="#121518" HorizontalAlignment="Left" Grid.RowSpan="3"/>
-
-                <ComboBox x:Name="departmentComboBox" Width="200" Margin="0,58,620,0" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Top" />
-
                 <!-- Additional Buttons -->
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,490" Grid.Row="2">
                     <Button Content="Add" Width="100" Style="{StaticResource addButton}" Margin="5" Click="AddDepartment_Click"/>
-                    <Button Content="Edit" Width="100" Style="{StaticResource addButton}" Margin="5" Click="EditDepartment_Click"/>
                     <Button x:Name="btnChangeDepartment" Content="Change Department" Width="130" Style="{StaticResource addButton}" Margin="5" Click="btnChangeDepartment_Click"/>
-                    <Button Content="Delete" Width="100" Style="{StaticResource addButton}" Margin="5" Click="DeleteDepartment_Click"/>
                     <Button x:Name="btnRefresh" Width="100" Style="{StaticResource addButton}" Margin="5" Click="Refresh_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="Refresh" VerticalAlignment="Center" Margin="0,1,8,0" Width="11" Height="11"/>
@@ -127,21 +122,6 @@
                         <DataGridTextColumn Header="Email" Width="*" Binding="{Binding Email}"/>
                         <DataGridTextColumn Header="Address" Width="*" Binding="{Binding Address}"/>
                         <DataGridTextColumn Header="Phone Number" Width="*" Binding="{Binding PhoneNumber}"/>
-
-                        <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button Name="btnEmployeeDetail" Style="{StaticResource gridEditButton}" Click="btnEmployeeDetail_Click">
-                                            <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
-                                        </Button>
-                                        <Button x:Name="btnHideEmployee" Background="Yellow" Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Click="btnHideEmployee_Click">
-                                            <Icon:PackIconMaterial Kind="EyeOutline" Style="{StaticResource gridButtonIcon}"/>
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

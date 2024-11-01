@@ -31,74 +31,29 @@ namespace DataGrid
         }
         private void LoadDepartments()
         {
-            employeeDataGrid.ItemsSource = _employeeServices.GetAllEmployeeLeaveDay();
+            employeeDataGrid.ItemsSource = _employeeServices.getEmployees();
         }
         private void LoadDepartmentComboBox()
         {
-            var departments = _departmentServices.GetDepartments();
-            departmentComboBox.ItemsSource = departments;
-            departmentComboBox.DisplayMemberPath = "DepartmentName";
-            departmentComboBox.SelectedValuePath = "DepartmentId";
+            _departmentServices.GetDepartments();
         }
         private void AddDepartment_Click(object sender, RoutedEventArgs e)
         {
-            var newDepartment = new Department
-            {
-                DepartmentName = "New Department" 
-            };
-
-            _departmentServices.AddDepartment(newDepartment);
+            var addWindow = new AddDepartmentWindow();
+            addWindow.ShowDialog();
             LoadDepartments();
-        }
-        private void EditDepartment_Click(object sender, RoutedEventArgs e)
-        {
-            if (employeeDataGrid.SelectedItem is Department selectedDepartment)
-            {
-                selectedDepartment.DepartmentName = "Updated Name";
-                _departmentServices.UpdateDepartment(selectedDepartment);
-                LoadDepartments();
-            }
-            else
-            {
-                MessageBox.Show("Please select a department to edit.");
-            }
         }
         private void btnChangeDepartment_Click(object sender, RoutedEventArgs e)
         {
             if (employeeDataGrid.SelectedItem is Employee selectedEmployee)
             {
-                if (departmentComboBox.SelectedValue is int newDepartmentId)
-                {
-                    _departmentServices.AssignEmployeeToDepartment(selectedEmployee.EmployeeId, newDepartmentId);
-                    LoadDepartments();
-                }
-                else
-                {
-                    MessageBox.Show("Please select a department to assign.", "Change Department", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                var changeWindow = new ChangeDepartmentWindow(selectedEmployee);
+                changeWindow.ShowDialog();
+                LoadDepartments();
             }
             else
             {
-                MessageBox.Show("Please select an employee to change department.", "Change Department", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-        private void DeleteDepartment_Click(object sender, RoutedEventArgs e)
-        {
-            if (employeeDataGrid.SelectedItem is Department selectedDepartment)
-            {
-                MessageBoxResult result = MessageBox.Show(
-                    $"Are you sure you want to delete the department: {selectedDepartment.DepartmentName}?",
-                    "Delete Department", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    _departmentServices.DeleteDepartment(selectedDepartment.DepartmentId);
-                    LoadDepartments();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select a department to delete.", "Delete Department", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Please select an employee to change department.");
             }
         }
         private void Refresh_Click(object sender, RoutedEventArgs e)
@@ -111,18 +66,6 @@ namespace DataGrid
             {
                 txtTitle.Text = $"Selected Employee: {selectedEmployee.FirstName} {selectedEmployee.LastName}";
             }
-        }
-        private void btnEmployeeDetail_Click(object sender, RoutedEventArgs e)
-        {
-            //if (employeeDataGrid.SelectedItem is Employee selectedEmployee)
-            //{
-            //    EmployeeDetailsWindow detailsWindow = new EmployeeDetailsWindow(selectedEmployee);
-            //    detailsWindow.ShowDialog();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Please select an employee to view details.", "Employee Details", MessageBoxButton.OK, MessageBoxImage.Information);
-            //}
         }
         private void btnHideEmployee_Click(object sender, RoutedEventArgs e)
         {
