@@ -118,7 +118,7 @@
                 <!--Add Button-->
                 <Button x:Name="btnLeaveDayList1" Style="{StaticResource addButton}" Click="btnLeaveDayList1_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                        <Icon:PackIconMaterial Kind="ListBox" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
                         <TextBlock Text="LeaveDayList" Loaded="TextBlock_Loaded"/>
                     </StackPanel>
                 </Button>
@@ -169,7 +169,7 @@
                 </Button>
                 <Button x:Name="btnLeaveDayRequest" Style="{StaticResource addButton}" Click="btnLeaveDayRequest_Click" Margin="0,24,160,4" Grid.Row="1">
                     <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Delete" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                        <Icon:PackIconMaterial Kind="AccessPoint" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
                         <TextBlock Text="Leave Day Request"/>
                     </StackPanel>
                 </Button>

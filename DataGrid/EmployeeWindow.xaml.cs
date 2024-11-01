@@ -211,7 +211,12 @@ namespace DataGrid
                   notificationDatagrid.ItemsSource = notification;
         }
 
-       
+        private void btnSendLeaveRequest_Click(object sender, RoutedEventArgs e)
+        {
+            SentLeaveRequest sentLeaveRequest = new SentLeaveRequest();
+            sentLeaveRequest.ShowDialog();
+
+        }
     }
 
  
