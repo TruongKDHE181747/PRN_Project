@@ -45,16 +45,12 @@ namespace DataGrid
         }
         private void btnChangeDepartment_Click(object sender, RoutedEventArgs e)
         {
-            if (employeeDataGrid.SelectedItem is Employee selectedEmployee)
-            {
-                var changeWindow = new ChangeDepartmentWindow(selectedEmployee);
-                changeWindow.ShowDialog();
-                LoadDepartments();
-            }
-            else
-            {
-                MessageBox.Show("Please select an employee to change department.");
-            }
+            string s = "";
+            var selectedEmployees = ((IEnumerable<Employee>)employeeDataGrid.ItemsSource).Where(emp => emp.IsSelected).ToList();
+            Application.Current.Properties["selectedEmployees"] = selectedEmployees;
+            ChangeDepartmentWindow changeDepartmentWindow = new ChangeDepartmentWindow();
+            changeDepartmentWindow.ShowDialog();
+            MessageBox.Show("Change Successful!");
         }
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
@@ -86,6 +82,45 @@ namespace DataGrid
             MainWindow mainWindow = new MainWindow();   
             mainWindow.Show();
             this.Close();   
+        }
+
+        
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            Employee employee = employeeDataGrid.SelectedItem as Employee;
+            employee.IsSelected = !employee.IsSelected;
+        }
+        
+        private void SelectAllCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            int count = 0;
+            var selectedEmployees = ((IEnumerable<Employee>)employeeDataGrid.ItemsSource).ToList();
+            
+            foreach (var employee in selectedEmployees)
+            {
+                if(employee.IsSelected)
+                {
+                    count++;
+                }
+            }
+            
+            if(count >= 0 && count < 12)
+            {
+                foreach (var employee in selectedEmployees)
+                {
+                    employee.IsSelected = true;
+                }
+            } else if(count == 12)
+            {
+                foreach (var employee in selectedEmployees)
+                {
+                    employee.IsSelected = false;
+                }
+            }
+
+            
+            LoadDepartments();
         }
     }
 }

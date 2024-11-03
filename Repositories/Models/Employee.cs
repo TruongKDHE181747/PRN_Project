@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repositories.Models;
 
@@ -44,6 +45,9 @@ public partial class Employee
     public int? RoleId { get; set; }
 
     public bool? IsActive { get; set; }
+
+    [NotMapped]
+    public bool IsSelected { get; set; }
 
     public virtual ICollection<ActivityHistory> ActivityHistories { get; set; } = new List<ActivityHistory>();
 

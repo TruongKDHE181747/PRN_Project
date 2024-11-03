@@ -23,11 +23,12 @@ namespace DataGrid
     {
         private Employee _employee;
         private DepartmentServices _departmentServices = new DepartmentServices();
+        public EmployeeServices employeeServices = new EmployeeServices();
 
-        public ChangeDepartmentWindow(Employee employee)
+        public ChangeDepartmentWindow()
         {
             InitializeComponent();
-            _employee = employee;
+            
             LoadDepartments();
         }
 
@@ -42,7 +43,12 @@ namespace DataGrid
         {
             if (departmentComboBox.SelectedValue is int newDepartmentId)
             {
-                _departmentServices.AssignEmployeeToDepartment(_employee.EmployeeId, newDepartmentId);
+                List<Employee> selectedEmployees = (List<Employee>)Application.Current.Properties["selectedEmployees"];
+                foreach (Employee employee in selectedEmployees)
+                {
+                    employee.DepartmentId = newDepartmentId;
+                    employeeServices.UpdateEmployee(employee);
+                }
                 this.Close();
             }
             else
