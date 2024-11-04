@@ -201,6 +201,18 @@ namespace DataGrid
             }
             return false;
         }
+
+        public bool CheckEmailFormat()
+        {
+            bool result = true;
+            string email = txtEmail.Text;
+            if (email.Contains("@")==false)
+            {
+                MessageBox.Show("Email is wrong format!", "Wrong format email", MessageBoxButton.OK, MessageBoxImage.Error);
+                result = false; 
+            }
+            return result;
+        }
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             
@@ -215,6 +227,10 @@ namespace DataGrid
                 MessageBox.Show("Please fill all the Input!", "Fill all input", MessageBoxButton.OK, MessageBoxImage.Information);
             } else
             {
+                if(CheckEmailFormat()==false)
+                {
+                    return;
+                }
 
                 if (CheckDuplicate(employee) == true)
                 {
@@ -269,6 +285,9 @@ namespace DataGrid
             activityHistoryServices.addActivityHistory(activityHistory);
         }
 
-       
+        private void txtPhoneNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+           e.Handled = new Regex("[^0-9]").IsMatch(e.Text);
+        }
     }
 }

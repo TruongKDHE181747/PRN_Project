@@ -249,6 +249,18 @@ namespace DataGrid
             return false;
         }
 
+        public bool CheckEmailFormat()
+        {
+            bool result = true;
+            string email = txtEmail.Text;
+            if (email.Contains("@") == false)
+            {
+                MessageBox.Show("Email is wrong format!", "Wrong format email", MessageBoxButton.OK, MessageBoxImage.Error);
+                result = false;
+            }
+            return result;
+        }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             Employee employee =  new Employee();
@@ -275,6 +287,11 @@ namespace DataGrid
             {
 
                 if (CheckDuplicate(employee) == true)
+                {
+                    return;
+                }
+
+                if (CheckEmailFormat() == false)
                 {
                     return;
                 }
@@ -325,6 +342,11 @@ namespace DataGrid
             activityHistory.Date = DateOnly.FromDateTime(DateTime.Now);
             activityHistory.Time = TimeOnly.FromDateTime(DateTime.Now);
             activityHistoryServices.addActivityHistory(activityHistory);
+        }
+
+        private void txtPhoneNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+           e.Handled = new Regex("[^0-9]").IsMatch(e.Text);
         }
     }
 }
