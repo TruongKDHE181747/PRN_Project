@@ -74,7 +74,7 @@
                              
                          Width="200"
                          materialDesign:HintAssist.Hint="Status"
-                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                         Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="cboStatus_SelectionChanged"
                         >
 
                         <ComboBox.ItemContainerStyle>
@@ -94,7 +94,7 @@
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Grid.Row="1">
-                    <ComboBox Name="cboRole" BorderBrush="White" Foreground="White" VerticalAlignment="Top" Margin="20 0 0 20">
+                    <ComboBox Name="cboRole" BorderBrush="White" Foreground="White" VerticalAlignment="Top" Margin="20 0 0 20" SelectionChanged="cboRole_SelectionChanged">
                         <ComboBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ComboBoxItem}">
                                 <Setter Property="Background" Value="White" />
@@ -147,7 +147,7 @@ Width="326" />
           BorderThickness="0,0,0,2"
           Height="28"
           VerticalContentAlignment="Center"
-          Width="326"
+          Width="326" TextChanged="txtUsername_TextChanged"
           >
                             <TextBox.Background>
                                 <LinearGradientBrush/>
@@ -169,7 +169,7 @@ Width="326" />
           BorderThickness="0,0,0,2"
           Height="28"
           VerticalContentAlignment="Center"
-          Width="326"
+          Width="326" TextChanged="txtFirstName_TextChanged"
           >
                             <TextBox.Background>
                                 <LinearGradientBrush/>
@@ -186,7 +186,7 @@ Width="326" />
                         <DatePicker Width="326" Name="dpDob" Foreground="Violet"
                                     FontSize="13"    
                           BorderBrush="White"
-Style="{StaticResource MaterialDesignOutlinedDatePicker}">
+Style="{StaticResource MaterialDesignOutlinedDatePicker}" SelectedDateChanged="dpDob_SelectedDateChanged">
 
                         </DatePicker>
                     </StackPanel>
@@ -207,7 +207,7 @@ BorderBrush="DarkGray"
 BorderThickness="0,0,0,2"
 Height="28"
 VerticalContentAlignment="Center"
-Width="326" 
+Width="326" TextChanged="txtAddress_TextChanged" 
      >
                             <TextBox.Background>
                                 <LinearGradientBrush/>
@@ -229,7 +229,7 @@ Width="326"
     BorderThickness="0,0,0,2"
     Height="28"
     VerticalContentAlignment="Center"
-    Width="326"   >
+    Width="326" TextChanged="txtEmail_TextChanged"   >
                             <TextBox.Background>
                                 <LinearGradientBrush/>
                             </TextBox.Background>
@@ -246,7 +246,7 @@ Width="326"
          FontSize="13"    
     materialDesign:TextFieldAssist.HasClearButton="True"
     
-    Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Top"
+    Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Top" SelectionChanged="cboJobPosition_SelectionChanged"
      >
                             <ComboBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ComboBoxItem}">
@@ -350,7 +350,7 @@ Width="326"
      BorderThickness="0,0,0,2"
      Height="28"
      VerticalContentAlignment="Center"
-     Width="326"
+     Width="326" TextChanged="txtLastName_TextChanged"
           >
                         <TextBox.Background>
                             <LinearGradientBrush/>
@@ -362,14 +362,14 @@ Width="326"
                  Content="Male"
                  FontSize="16"                    
                  Style="{StaticResource MaterialDesignLightRadioButton}"
-                 Tag="True"
+                 Tag="True" Checked="rbMale_Checked"
                 >
 
                         </RadioButton>
                         <RadioButton FontSize="16" Margin="4" x:Name="rbFemale" GroupName="gender" Foreground="White"
                    Content="Female"
                    Style="{StaticResource MaterialDesignLightRadioButton}"
-                   Tag="True" IsChecked="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}" 
+                   Tag="True" IsChecked="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}" Checked="rbFemale_Checked" 
 />
                     </StackPanel>
 
@@ -388,7 +388,7 @@ Width="326"
      BorderThickness="0,0,0,2"
      Height="28"
      VerticalContentAlignment="Center"
-     Width="326" PreviewTextInput="txtPhoneNumber_PreviewTextInput"
+     Width="326" PreviewTextInput="txtPhoneNumber_PreviewTextInput" TextChanged="txtPhoneNumber_TextChanged"
           >
                             <TextBox.Background>
                                 <LinearGradientBrush/>
@@ -402,7 +402,7 @@ Width="326"
                 Width="326"/>
                         <DatePicker Width="326" Name="dpStartDate" Foreground="Violet" 
 BorderBrush="White"
-Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+Style="{StaticResource MaterialDesignOutlinedDatePicker}" SelectedDateChanged="dpStartDate_SelectedDateChanged"/>
 
 
                         <TextBlock Text="Department"
@@ -415,7 +415,7 @@ Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
                         <ComboBox Width="326" Name="cboDepartment" BorderBrush="White" Foreground="White"
                         
  materialDesign:TextFieldAssist.HasClearButton="True"
- Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Top" 
+ Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Top" SelectionChanged="cboDepartment_SelectionChanged" 
 >
 
                             <ComboBox.ItemContainerStyle>

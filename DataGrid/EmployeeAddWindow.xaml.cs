@@ -47,6 +47,7 @@ namespace DataGrid
         private void btnImage_Click(object sender, RoutedEventArgs e)
         {
             uri_after_upload_file = UploadImages();
+            Application.Current.Properties["addimg"] = uri_after_upload_file;
             //txtFirstName.Text = image_uri;  
         }
 
@@ -128,7 +129,53 @@ namespace DataGrid
             LoadRole();
             LoadJobPosition();
             LoadDepartment();
+            LoadAvailableInfor();
+
+
+
+        }
+
+        public void LoadAvailableInfor()
+        {
+            string addimg = Application.Current.Properties["addimg"]+"";
+            if(string.IsNullOrEmpty(addimg) ==false)
+            {
+                uri_after_upload_file = addimg;
+                Load_Image(addimg);
+            }
+            txtUsername.Text = Application.Current.Properties["addUsername"]+"";
+            txtFirstName.Text = Application.Current.Properties["addFirstName"] + "";
+            txtLastName.Text = Application.Current.Properties["addLastname"] + "";
+            txtEmail.Text = Application.Current.Properties["addEmail"] + "";
+            txtPhoneNumber.Text = Application.Current.Properties["addPhone"] + "";
+            txtAddress.Text = Application.Current.Properties["addAddress"] + "";
+            dpDob.Text  = Application.Current.Properties["addDob"] + "";
+            dpStartDate.Text = Application.Current.Properties["addStartDate"] + "";
+
+            string job = Application.Current.Properties["addJob"] + "";
+            string department = Application.Current.Properties["addDepartment"] + "";
+            string role = Application.Current.Properties["addRole"] + "";
+            string status = Application.Current.Properties["addStatus"] + "";
+            if (job.Length == 0) job = "0";
+            if (department.Length == 0) department = "0";
+            if (role.Length == 0) role = "0";
+            if (status.Length == 0) status = "0";
+
+
+            cboJobPosition.SelectedIndex = int.Parse(job);
+            cboDepartment.SelectedIndex = int.Parse(department);
+            cboRole.SelectedIndex = int.Parse(role);
+            cboStatus.SelectedIndex = int.Parse(status);
             
+            string gender = Application.Current.Properties["addGender"] + "";
+            if(gender.Equals("Male"))
+            {
+                rbMale.IsChecked = true;
+            }
+            else
+            {
+                rbFemale.IsChecked = true;
+            }
 
         }
 
@@ -137,8 +184,7 @@ namespace DataGrid
         {
             cboRole.ItemsSource = roleServices.GetRoles();
             cboRole.DisplayMemberPath = "RoleName";
-            cboRole.SelectedValuePath = "RoleId";
-            cboRole.SelectedIndex = 0;  
+            cboRole.SelectedValuePath = "RoleId";  
         }
 
         public void LoadStatus()
@@ -147,7 +193,6 @@ namespace DataGrid
             cboStatus.ItemsSource = statusServices.GetStatuses();
             cboStatus.DisplayMemberPath = "StatusDescription";
             cboStatus.SelectedValuePath = "StatusId";
-            cboStatus.SelectedIndex = 0;
         }
 
         public void LoadJobPosition()
@@ -156,7 +201,6 @@ namespace DataGrid
             cboJobPosition.ItemsSource = jobpositionServices.GetJobPositions();
             cboJobPosition.DisplayMemberPath = "JobPositionName";
             cboJobPosition.SelectedValuePath = "JobPositionId";
-            cboJobPosition.SelectedIndex = 0;
         }
 
 
@@ -166,7 +210,6 @@ namespace DataGrid
             cboDepartment.ItemsSource = departmentServices.GetDepartments().Where(d => d.DepartmentId != 6);
             cboDepartment.DisplayMemberPath = "DepartmentName";
             cboDepartment.SelectedValuePath = "DepartmentId";
-            cboDepartment.SelectedIndex = 0;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -219,9 +262,13 @@ namespace DataGrid
             Employee employee = new Employee();   
 
             employee.Photo = uri_after_upload_file;
-             
 
-            if (txtUsername.Text.Length==0|| txtPassword.Password.Length==0|| txtFirstName.Text.Length == 0 || txtLastName.Text.Length==0 || txtAddress.Text.Length==0 || txtEmail.Text.Length==0
+            string role = cboRole.SelectedValue + "";
+            string department = cboDepartment.SelectedValue + "";
+            string job = cboJobPosition.SelectedValue + "";
+            string status = cboStatus.SelectedValue + "";
+
+            if (role.Length==0 || department.Length == 0 || job.Length == 0 || status.Length == 0 || txtUsername.Text.Length==0|| txtPassword.Password.Length==0|| txtFirstName.Text.Length == 0 || txtLastName.Text.Length==0 || txtAddress.Text.Length==0 || txtEmail.Text.Length==0
                 || txtPhoneNumber.Text.Length==0 || txtAvailableDays.Text.Length==0 || txtTotalLeaveDays.Text.Length == 0 ||dpDob.Text.Length==0 || dpStartDate.Text.Length==0)
             {
                 MessageBox.Show("Please fill all the Input!", "Fill all input", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -288,6 +335,80 @@ namespace DataGrid
         private void txtPhoneNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
            e.Handled = new Regex("[^0-9]").IsMatch(e.Text);
+        }
+
+        private void cboRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Application.Current.Properties["addRole"] = cboRole.SelectedIndex + "";  
+        }
+
+        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Application.Current.Properties["addUsername"] = txtUsername.Text;
+        }
+
+        private void txtFirstName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Application.Current.Properties["addFirstName"] = txtFirstName.Text;
+        }
+
+        private void txtLastName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Application.Current.Properties["addLastname"] = txtLastName.Text;
+        }
+
+        private void dpDob_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Application.Current.Properties["addDob"] = dpDob.Text;
+        }
+
+        private void rbMale_Checked(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Properties["addGender"] = "Male";
+        }
+
+        private void rbFemale_Checked(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Properties["addGender"] = "Female";
+        }
+
+        private void txtAddress_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Application.Current.Properties["addAddress"] = txtAddress.Text;
+        }
+
+        private void txtPhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Application.Current.Properties["addPhone"] = txtPhoneNumber.Text;
+        }
+
+       
+
+        private void dpStartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Application.Current.Properties["addStartDate"] = dpStartDate.Text;
+            
+        }
+
+        private void cboJobPosition_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Application.Current.Properties["addJob"] = cboJobPosition.SelectedIndex+"";
+            
+        }
+
+        private void cboDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Application.Current.Properties["addDepartment"] = cboDepartment.SelectedIndex + "";
+        }
+
+        private void cboStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Application.Current.Properties["addStatus"] = cboStatus.SelectedIndex + "";
+        }
+
+        private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Application.Current.Properties["addEmail"] = txtEmail.Text;
         }
     }
 }
